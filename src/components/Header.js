@@ -1,8 +1,14 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import Title from '../assets/homeTitle.svg'
 
 const Header = () => {
+
+    const history = useHistory();
+
+
+
     return (
         <header>
             <Navbar fixed='top' bg="primary" variant='dark' expand="lg" className='navbar-dark bg-dark' collapseOnSelect>
@@ -21,7 +27,11 @@ const Header = () => {
                         <Nav className="ms-auto">
                             <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="/results">Search</Nav.Link>
-                            <Nav.Link href="/login">Log in</Nav.Link>
+                            <NavDropdown title="Sign in / Register" id="basic-nav-dropdown">
+                                <NavDropdown.Item href='/login'>Sign In</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href='/register'>Register</NavDropdown.Item>
+                            </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
