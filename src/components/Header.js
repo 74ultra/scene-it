@@ -21,11 +21,7 @@ const Header = () => {
                         <Nav className="ms-auto">
                             <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="/results">Search</Nav.Link>
-                            <NavDropdown title="Sign in / Register" id="basic-nav-dropdown">
-                                <NavDropdown.Item href='/login'>Sign In</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href='/register'>Register</NavDropdown.Item>
-                            </NavDropdown>
+                            <Nav.Link href="/login">Log in</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
