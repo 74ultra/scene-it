@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
+
+import { Auth } from 'aws-amplify'
 
 const RegisterScreen = () => {
 
@@ -13,6 +15,36 @@ const RegisterScreen = () => {
         reenter: ''
     })
 
+    const [user, updateUser] = useState(null)
+
+    // CHECK USER STATUS
+    const checkUser = async () => {
+
+        try {
+            const user = await Auth.currentAuthenticatedUser()
+            console.log(user)
+            updateUser(user)
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    // CREATING NEW ACCOUNT
+    const createAccount = async (username, password, email) => {
+        try {
+            await Auth.signUp({
+                username,
+                password,
+                attributes: { email }
+            })
+        } catch (err) {
+            console.log(err)
+        }
+
+
+    }
+
     const handleChange = (e) => {
         setCreds({
             ...creds,
@@ -23,8 +55,16 @@ const RegisterScreen = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(creds)
+        const { name, email, password, reenter } = creds
+        if (password === reenter) {
+            createAccount(name, password, email)
+        }
         history.push('/')
     }
+
+    useEffect(() => {
+        checkUser()
+    }, [])
 
     return (
         <Container style={{ width: '50%', marginTop: '50px', border: '1px solid lightgrey', borderRadius: '10px' }}>
