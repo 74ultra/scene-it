@@ -1,0 +1,6 @@
+// Search
+export const INITIAL_SEARCH = 'INITIAL_SEARCH'
+export const NEXT_SEARCH_PAGE = 'NEXT_SEARCH_PAGE'
+export const PREVIOUS_SEARCH_PAGE = 'PREVIOUS_SEARCH_PAGE'
+export const TITLE_SEARCH = 'TITLE_SEARCH'
+export const CLEAR_ALL = 'CLEAR_ALL'
