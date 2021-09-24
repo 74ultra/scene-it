@@ -1,37 +1,46 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import Title from '../assets/homeTitle.svg'
+import UserContext from '../state/user/userContext'
 
 const Header = () => {
 
-    const history = useHistory();
+    const userContext = useContext(UserContext)
 
-
+    const { authenticated, signOut, username } = userContext
 
     return (
         <header>
             <Navbar fixed='top' bg="primary" variant='dark' expand="lg" className='navbar-dark bg-dark' collapseOnSelect>
                 <Container>
-                    <Navbar.Brand href='/'>
-                        <img
-                            src={Title}
-                            alt='SceneIt title'
-                            className='d-inline-block align-top'
-                            width='110'
-                        />
+                    <Navbar.Brand>
+                        <Link to='/'>
+                            <img
+                                src={Title}
+                                alt='SceneIt title'
+                                className='d-inline-block align-top'
+                                width='110'
+                            />
+                        </Link>
+
                     </Navbar.Brand>
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
-                            <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/results">Search</Nav.Link>
-                            <NavDropdown title="Log in" id="basic-nav-dropdown">
-                                <NavDropdown.Item href='/login'>Sign In</NavDropdown.Item>
+
+                            <Nav.Link><Link style={{ textDecoration: 'none' }} to='/'>Home</Link></Nav.Link>
+                            <Nav.Link><Link style={{ textDecoration: 'none' }} to='/results'>Search</Link></Nav.Link>
+                            {!authenticated && <NavDropdown title="Log in" id="basic-nav-dropdown">
+                                <NavDropdown.Item><Link style={{ textDecoration: 'none' }} to='/login'>Log in</Link></NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href='/register'>Register</NavDropdown.Item>
-                            </NavDropdown>
+                                <NavDropdown.Item><Link style={{ textDecoration: 'none' }} to='/register'>Create account</Link></NavDropdown.Item>
+                            </NavDropdown>}
+                            {authenticated && <NavDropdown title={username} id='basic-nav-dropdown'>
+                                <NavDropdown.Item>My account</NavDropdown.Item>
+                                <NavDropdown.Item onClick={signOut}>Sign out</NavDropdown.Item>
+                            </NavDropdown>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

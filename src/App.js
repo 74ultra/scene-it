@@ -8,27 +8,32 @@ import ResultsScreen from './screens/ResultsScreen'
 import MediaScreen from './screens/MediaScreen'
 import LogInScreen from './screens/LogInScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import Confirm from './screens/Confirm';
 
 import SearchState from './state/search/SearchState';
+import UserState from './state/user/UserState';
+
+import { ProtectedRoute } from './utils/ProtectedRoute';
 
 function App() {
   return (
     <Router>
-      <SearchState>
-        <Header />
-        <main>
-          <Route exact path='/' component={HomeScreen} />
-          <Container style={{ padding: '80px 0 50px' }}>
-            <Route exact path='/login' component={LogInScreen} />
-            <Route exact path='/register' component={RegisterScreen} />
-            <Route exact path='/results' component={ResultsScreen} />
-            <Route exact path='/media/:id' component={MediaScreen} />
-          </Container>
-          {/* <Footer /> */}
-        </main>
-
-      </SearchState>
-
+      <UserState>
+        <SearchState>
+          <Header />
+          <main>
+            <Route exact path='/' component={HomeScreen} />
+            <Container style={{ padding: '80px 0 50px' }}>
+              <Route exact path='/login' component={LogInScreen} />
+              <Route exact path='/register' component={RegisterScreen} />
+              <Route exact path='/confirm' component={Confirm} />
+              <ProtectedRoute exact path='/results' component={ResultsScreen} />
+              <ProtectedRoute exact path='/media/:id' component={MediaScreen} />
+            </Container>
+            {/* <Footer /> */}
+          </main>
+        </SearchState>
+      </UserState>
     </Router>
   );
 }

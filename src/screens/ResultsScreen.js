@@ -5,22 +5,26 @@ import AltSearchForm from '../components/AltSearchForm'
 import Conveyer from '../components/Conveyer'
 import TitleAlert from '../components/alerts/TitleAlert'
 import SearchContext from '../state/search/searchContext'
+import UserContext from '../state/user/userContext';
 import { Button, Row, Col, Table } from 'react-bootstrap'
 
 
 const ResultsScreen = () => {
 
     const searchContext = useContext(SearchContext)
+    const userContext = useContext(UserContext)
 
     const { results, nextPage, previousPage, page, title } = searchContext
+
+    const { username, userId, authenticated } = userContext
+
+    console.log('Results: ', username, userId, authenticated)
 
     const history = useHistory();
 
     const searchMedia = (id) => {
         history.push(`/media/${id}`)
     }
-
-    console.log(results)
 
     return (
         <div>
@@ -48,7 +52,7 @@ const ResultsScreen = () => {
                 <tbody>
                     {results.Search.map(result => {
                         return (
-                            <tr onClick={() => searchMedia(result.imdbID)}>
+                            <tr key={result.imdbID} onClick={() => searchMedia(result.imdbID)}>
                                 <td style={{ width: '58%' }}>{result.Title}</td>
                                 <td style={{ width: '14%' }}>{result.Year}</td>
                                 <td style={{ width: '14%' }}>{result.Type}</td>

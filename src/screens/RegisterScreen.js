@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
 
@@ -15,21 +15,6 @@ const RegisterScreen = () => {
         reenter: ''
     })
 
-    const [user, updateUser] = useState(null)
-
-    // CHECK USER STATUS
-    const checkUser = async () => {
-
-        try {
-            const user = await Auth.currentAuthenticatedUser()
-            console.log(user)
-            updateUser(user)
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
-
     // CREATING NEW ACCOUNT
     const createAccount = async (username, password, email) => {
         try {
@@ -38,6 +23,7 @@ const RegisterScreen = () => {
                 password,
                 attributes: { email }
             })
+            history.push('/confirm')
         } catch (err) {
             console.log(err)
         }
@@ -57,14 +43,9 @@ const RegisterScreen = () => {
         console.log(creds)
         const { name, email, password, reenter } = creds
         if (password === reenter) {
-            createAccount(name, password, email)
+            createAccount(name, password, email).then((res) => console.log(res))
         }
-        history.push('/')
     }
-
-    useEffect(() => {
-        checkUser()
-    }, [])
 
     return (
         <Container style={{ width: '50%', marginTop: '50px', border: '1px solid lightgrey', borderRadius: '10px' }}>

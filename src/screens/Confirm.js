@@ -1,18 +1,30 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import UserContext from '../state/user/userContext'
+import { useHistory } from 'react-router-dom'
 
-const LogInScreen = () => {
+import { Auth } from 'aws-amplify'
 
-    const userContext = useContext(UserContext)
+const Confirm = () => {
 
-    const { signIn } = userContext
+    let history = useHistory()
 
     const [creds, setCreds] = useState({
         username: '',
-        password: ''
+        confirmCode: ''
     })
+
+    // CONFIRM NEW USER ACCOUNT
+    const confirmSignUp = async () => {
+
+        try {
+            const { username, confirmCode } = creds
+            await Auth.confirmSignUp(username, confirmCode)
+            history.push('/login')
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
 
     const handleChange = (e) => {
         setCreds({
@@ -23,48 +35,42 @@ const LogInScreen = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const { username, password } = creds
-        signIn(username, password)
-
+        confirmSignUp()
 
     }
-
 
     return (
         <Container style={{ width: '50%', marginTop: '50px', border: '1px solid lightgrey', borderRadius: '10px' }}>
             <Form style={{ padding: '20px' }} onSubmit={handleSubmit}>
-                <h3 style={{ padding: '10px 0 15px' }}>Log In</h3>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <h3 style={{ padding: '10px 0 15px' }}>Confirm new account</h3>
+                <Form.Group className="mb-3" controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
                         name='username'
-                        value={creds.username}
-                        type="text"
-                        placeholder="Enter your username"
+                        value={creds.email}
+                        type="test"
+                        placeholder="Enter username"
                         onChange={handleChange}
                     />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>Confirmation code</Form.Label>
                     <Form.Control
-                        name='password'
+                        name='confirmCode'
                         value={creds.password}
-                        type="password"
-                        placeholder="Password"
+                        type="text"
+                        placeholder="Enter confirmation code"
                         onChange={handleChange}
                     />
+                    <Form.Text className="text-muted">
+                        Check your email for your confirmation code
+                    </Form.Text>
                 </Form.Group>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Button style={{ width: '100%', margin: '20px 0' }} variant="primary" type="submit">
-                        Log in
+                        Confirm account
                     </Button>
-                </div>
-                <hr />
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Form.Text className="text-muted">
-                        New to Scene It? <Link to='/register'>Create your account &#10148;</Link>
-                    </Form.Text>
                 </div>
 
 
@@ -74,4 +80,4 @@ const LogInScreen = () => {
     )
 }
 
-export default LogInScreen
+export default Confirm

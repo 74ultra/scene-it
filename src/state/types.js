@@ -4,3 +4,7 @@ export const NEXT_SEARCH_PAGE = 'NEXT_SEARCH_PAGE'
 export const PREVIOUS_SEARCH_PAGE = 'PREVIOUS_SEARCH_PAGE'
 export const TITLE_SEARCH = 'TITLE_SEARCH'
 export const CLEAR_ALL = 'CLEAR_ALL'
+
+// USER
+export const GET_USER_INFO = 'GET_USER_INFO'
+export const SIGN_OUT_USER = 'SIGN_OUT_USER'
