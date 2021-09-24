@@ -1,14 +1,22 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import Title from '../assets/homeTitle.svg'
 import UserContext from '../state/user/userContext'
+import SearchContext from '../state/search/searchContext'
 
 const Header = () => {
 
     const userContext = useContext(UserContext)
+    const searchContext = useContext(SearchContext)
 
     const { authenticated, signOut, username } = userContext
+    const { clearAll } = searchContext
+
+    const signOutUser = () => {
+        signOut()
+        clearAll()
+    }
 
     return (
         <header>
@@ -31,7 +39,7 @@ const Header = () => {
                         <Nav className="ms-auto">
 
                             <Nav.Link><Link style={{ textDecoration: 'none' }} to='/'>Home</Link></Nav.Link>
-                            <Nav.Link><Link style={{ textDecoration: 'none' }} to='/results'>Search</Link></Nav.Link>
+                            {authenticated && <Nav.Link><Link style={{ textDecoration: 'none' }} to='/results'>Search</Link></Nav.Link>}
                             {!authenticated && <NavDropdown title="Log in" id="basic-nav-dropdown">
                                 <NavDropdown.Item><Link style={{ textDecoration: 'none' }} to='/login'>Log in</Link></NavDropdown.Item>
                                 <NavDropdown.Divider />
@@ -39,7 +47,7 @@ const Header = () => {
                             </NavDropdown>}
                             {authenticated && <NavDropdown title={username} id='basic-nav-dropdown'>
                                 <NavDropdown.Item>My account</NavDropdown.Item>
-                                <NavDropdown.Item onClick={signOut}>Sign out</NavDropdown.Item>
+                                <NavDropdown.Item onClick={signOutUser}>Sign out</NavDropdown.Item>
                             </NavDropdown>}
                         </Nav>
                     </Navbar.Collapse>

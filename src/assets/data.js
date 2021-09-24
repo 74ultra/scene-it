@@ -9,3 +9,9 @@ export const imgUrls = {
     eighth: 'https://m.media-amazon.com/images/M/MV5BMTU2OTkwNzMyM15BMl5BanBnXkFtZTcwOTI4ODg2Ng@@._V1_SX300.jpg',
     ninth: 'https://m.media-amazon.com/images/M/MV5BMjMxNTdiNWMtOWY0My00MjM4LTkwNzMtOGI0YThhN2Q4M2I4XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg'
 }
+
+export const homeScreenText = {
+    search: 'Powered by The Open Movie Database API, Scene-It allows you to search for 1000\'s of movies, series and video games.',
+    rate: 'Select your favorite media, create your own collections, give them star ratings, and add your own comments and critiques.',
+    share: 'Share your collections with your friends and the world. Unleash your inner movie critic and let everyone know what inspires you!'
+}

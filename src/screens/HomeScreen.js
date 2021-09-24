@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Container, Button, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/sceneItLogo1.svg'
@@ -7,6 +7,11 @@ import Title from '../assets/homeTitle.svg'
 import Search from '../assets/search.svg'
 import Rate from '../assets/rate.svg'
 import Share from '../assets/share.svg'
+
+import SearchContext from '../state/search/searchContext'
+import UserContext from '../state/user/userContext'
+
+import { homeScreenText } from '../assets/data'
 
 const banCtnStyles = {
     height: '500px',
@@ -18,6 +23,14 @@ const banCtnStyles = {
 
 const HomeScreen = () => {
 
+    const searchContext = useContext(SearchContext)
+    const { clearAll } = searchContext
+
+    const userContext = useContext(UserContext)
+    const { authenticated } = userContext
+
+    const { search, rate, share } = homeScreenText
+
     return (
         <div style={{ padding: '70px 0' }}>
             <div style={banCtnStyles}>
@@ -27,8 +40,8 @@ const HomeScreen = () => {
 
                 </div>
                 <div style={{ width: '50%', margin: '0 auto', textAlign: 'center' }}>
-                    <Link to='/results'>
-                        <Button style={{ width: '50%', backgroundColor: 'white', color: '#FB050C' }}>Sign in or start searching</Button>
+                    <Link onClick={clearAll} to='/results'>
+                        <Button style={{ width: '50%', backgroundColor: '#FB050C', color: 'white', fontSize: '1.2rem' }}>{authenticated ? `Start your search!` : `Sign in to get started!`}</Button>
                     </Link>
                 </div>
             </div>
@@ -36,17 +49,17 @@ const HomeScreen = () => {
                 <Row>
                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <img src={Search} alt='search' width='150' style={{ padding: '50px 0 20px' }} />
-                        <p style={{ width: '70%' }}> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p style={{ width: '80%', fontSize: '1.3rem' }}>{search}</p>
 
                     </Col>
                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <img src={Rate} alt='rate' width='100' style={{ padding: '50px 0 20px' }} />
-                        <p style={{ width: '70%' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p style={{ width: '80%', fontSize: '1.3rem' }}>{rate}</p>
 
                     </Col>
                     <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <img src={Share} alt='share' width='150' style={{ padding: '50px 0 20px' }} />
-                        <p style={{ width: '70%' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <img src={Share} alt='share' width='135' style={{ padding: '50px 0 20px' }} />
+                        <p style={{ width: '80%', fontSize: '1.3rem' }}>{share}</p>
 
                     </Col>
                 </Row>
