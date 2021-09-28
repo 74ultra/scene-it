@@ -7,6 +7,7 @@ import Title from '../assets/homeTitle.svg'
 import Search from '../assets/search.svg'
 import Rate from '../assets/rate.svg'
 import Share from '../assets/share.svg'
+import Footer from '../components/Footer'
 
 import SearchContext from '../state/search/searchContext'
 import UserContext from '../state/user/userContext'
@@ -64,7 +65,7 @@ const HomeScreen = () => {
                     </Col>
                 </Row>
             </Container>
-
+            <Footer />
         </div>
 
     )

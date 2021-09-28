@@ -3,8 +3,8 @@ import { Alert } from 'react-bootstrap'
 
 const TitleAlert = ({ title, numResults }) => {
     return (
-        <Alert variant="dark">
-            <Alert.Heading><em>{numResults}</em> results for <strong>"{title}"</strong></Alert.Heading>
+        <Alert style={{ height: '80px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }} variant="dark">
+            <Alert.Heading style={{ margin: '0' }}><em>{numResults}</em> results for <strong>"{title}"</strong></Alert.Heading>
         </Alert>
     )
 }

@@ -12,7 +12,8 @@ export default (state, action) => {
             return {
                 ...state,
                 results: action.payload[0],
-                title: action.payload[1]
+                title: action.payload[1],
+                titleInfo: {}
             };
         case TITLE_SEARCH:
             return {
@@ -23,20 +24,23 @@ export default (state, action) => {
             return {
                 ...state,
                 results: action.payload[0],
-                page: action.payload[1]
+                page: action.payload[1],
+                titleInfo: {}
             };
         case PREVIOUS_SEARCH_PAGE:
             return {
                 ...state,
                 results: action.payload[0],
-                page: action.payload[1]
+                page: action.payload[1],
+                titleInfo: {}
             }
         case CLEAR_ALL:
             return {
                 ...state,
                 results: {},
                 title: '',
-                page: 1
+                page: 1,
+                titleInfo: {}
             }
         default:
             return state

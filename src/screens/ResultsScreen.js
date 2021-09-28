@@ -5,20 +5,15 @@ import AltSearchForm from '../components/AltSearchForm'
 import Conveyer from '../components/Conveyer'
 import TitleAlert from '../components/alerts/TitleAlert'
 import SearchContext from '../state/search/searchContext'
-import UserContext from '../state/user/userContext';
 import { Button, Row, Col, Table } from 'react-bootstrap'
+import Footer from '../components/Footer'
 
 
 const ResultsScreen = () => {
 
     const searchContext = useContext(SearchContext)
-    const userContext = useContext(UserContext)
 
     const { results, nextPage, previousPage, page, title } = searchContext
-
-    const { username, userId, authenticated } = userContext
-
-    console.log('Results: ', username, userId, authenticated)
 
     const history = useHistory();
 
@@ -32,7 +27,7 @@ const ResultsScreen = () => {
                 <AltSearchForm />
             </div>
             {results.Response ? null :
-                <div style={{ margin: '0 auto', textAlign: 'center' }}>
+                <div style={{ margin: '0 auto', padding: '48px 0 0', textAlign: 'center' }}>
                     <Conveyer />
                 </div>
             }
@@ -44,19 +39,19 @@ const ResultsScreen = () => {
 
             {results.Response === 'True' && <Table style={{ maxWidth: '80%', minWidth: '80%', margin: '0 auto' }} hover>
                 <thead>
-                    <th>Title</th>
-                    <th>Year</th>
-                    <th>Type</th>
-                    <th>Details</th>
+                    <th style={{ fontSize: '1.3rem', padding: '0 0 0 8px' }}>Title</th>
+                    <th style={{ textAlign: 'center', fontSize: '1.3rem' }}>Year</th>
+                    <th style={{ textAlign: 'center', fontSize: '1.3rem' }}> Type</th>
+                    <th style={{ textAlign: 'center', fontSize: '1.3rem' }}>Details</th>
                 </thead>
                 <tbody>
                     {results.Search.map(result => {
                         return (
                             <tr key={result.imdbID} onClick={() => searchMedia(result.imdbID)}>
-                                <td style={{ width: '58%' }}>{result.Title}</td>
-                                <td style={{ width: '14%' }}>{result.Year}</td>
-                                <td style={{ width: '14%' }}>{result.Type}</td>
-                                <td style={{ width: '14%' }}><Button variant='secondary' size='sm' style={{ borderRadius: '3px', width: '30px' }}>...</Button></td>
+                                <td style={{ width: '50%', fontSize: '1.2rem' }}>{result.Title}</td>
+                                <td style={{ width: '20%', fontSize: '1.2rem', textAlign: 'center' }}>{result.Year}</td>
+                                <td style={{ width: '20%', fontSize: '1.2rem', textAlign: 'center' }}>{result.Type}</td>
+                                <td style={{ width: '10%', fontSize: '1.2rem', textAlign: 'center' }}><Button variant='secondary' size='sm' style={{ borderRadius: '3px', width: '30px' }}>...</Button></td>
                             </tr>
                         )
                     })}
@@ -70,6 +65,7 @@ const ResultsScreen = () => {
                     {results.Response === 'True' && Object.keys(results.Search).length > 9 && <Button style={{ margin: '0 10px', float: 'right', borderRadius: '5px' }} size='sm' variant="info" onClick={nextPage}>&#10230; </Button>}
                 </Col>
             </Row>
+            <Footer />
         </div>
     )
 }

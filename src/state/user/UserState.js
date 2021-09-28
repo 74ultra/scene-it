@@ -3,10 +3,14 @@ import { useHistory } from 'react-router-dom'
 import UserContext from './userContext'
 import UserReducer from './userReducer'
 import { Auth } from 'aws-amplify'
+import axios from 'axios'
 
 import {
     GET_USER_INFO,
-    SIGN_OUT_USER
+    GET_FAVORITES,
+    SIGN_OUT_USER,
+    GET_FAV_INFO,
+    CLEAR_FAV_INFO
 } from '../types'
 
 
@@ -15,6 +19,7 @@ const UserState = props => {
         username: null,
         userId: null,
         favorites: null,
+        favInfo: null,
         errorStatus: null,
         authenticated: false
     }
@@ -28,9 +33,8 @@ const UserState = props => {
         let user;
         try {
             user = await Auth.currentAuthenticatedUser()
-            console.log('From context', user)
         } catch (err) {
-            console.log('Context: ', err)
+            console.log('Get user error: ', err)
         }
         dispatch({
             type: GET_USER_INFO,
@@ -38,18 +42,45 @@ const UserState = props => {
         })
     }
 
-    // const signOut1 = async () => {
-    //     try {
-    //         await Auth.signOut()
-    //         console.log('signed out')
-    //         history.push('/')
+    // GET FAVORITES FROM DATABASE
+    const getUserFavorites = async (userId) => {
+        const reqBody = { "userId": `${userId}` }
+        let favData;
+        try {
+            const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/favs`, reqBody)
+            favData = res.data.Items
+        } catch (err) {
+            console.log("There was a problem retrieving favorite: ", err)
+        }
+        dispatch({
+            type: GET_FAVORITES,
+            payload: favData
+        })
 
-    //     } catch (err) {
+    }
 
-    //     }
+    // GET INFO FOR INDIVIDUAL FAVORITE
+    const getFavInfo = (id) => {
+        clearFavInfo()
+        const filtered = state.favorites.filter(fav => fav.imdbID.S === id)
 
-    // }
+        dispatch({
+            type: GET_FAV_INFO,
+            payload: filtered[0]
+        })
+    }
 
+    // CLEAR INDIVIDUAL FAVIORITE INFO
+    const clearFavInfo = () => {
+        dispatch({ type: CLEAR_FAV_INFO })
+    }
+
+    // ADD MEDIA TO DATABASE
+    const addFavorite = (favData) => {
+        console.log('Submitted from context', favData)
+    }
+
+    // SIGN USER OUT AND CLEAR STATE
     const signOut = () => {
         Auth.signOut()
             .then(() => {
@@ -69,7 +100,6 @@ const UserState = props => {
     const signIn = (userName, passWord) => {
         Auth.signIn(userName, passWord)
             .then(res => {
-                console.log(res)
                 getUser()
             })
             .then(() => history.push('/'))
@@ -80,11 +110,15 @@ const UserState = props => {
         <UserContext.Provider
             value={{
                 getUser,
+                getUserFavorites,
                 signOut,
                 signIn,
+                addFavorite,
+                getFavInfo,
                 username: state.username,
                 userId: state.userId,
                 favorites: state.favorites,
+                favInfo: state.favInfo,
                 authenticated: state.authenticated
             }}
         >

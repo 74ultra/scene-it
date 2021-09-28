@@ -5,7 +5,7 @@ import { Navbar, Container, Col, Row } from 'react-bootstrap'
 const Footer = () => {
     return (
         <footer>
-            <Navbar bg="primary" variant='dark' expand="lg" className='navbar-dark bg-dark' collapseOnSelect>
+            <Navbar bg="primary" variant='dark' expand="lg" className='navbar-dark bg-dark' fixed="bottom" collapseOnSelect>
                 <Container>
                     <Row style={{ textAlign: 'center', margin: '0 auto' }}>
                         <Col>

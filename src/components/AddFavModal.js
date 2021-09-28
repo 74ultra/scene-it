@@ -1,16 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Modal, Button, Form, Container, FloatingLabel } from 'react-bootstrap'
+import UserContext from '../state/user/userContext';
 
 const AddFavModal = ({ movie }) => {
 
+    const userContext = useContext(UserContext)
+
+    console.log('UserContext', userContext.userId)
+
+    // const addFavorite = userContext.addFavorite
+
+    const addFavorite = userContext.addFavorite
+
+    const userId = useContext(userContext)
+
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setForm({
+            rating: 0,
+            comment: ''
+        })
+        setShow(false)
+    };
     const handleShow = () => setShow(true);
 
     const [form, setForm] = useState({
         rating: 0,
-        comments: ''
+        comment: ''
     })
 
     const handleChange = e => {
@@ -21,21 +38,21 @@ const AddFavModal = ({ movie }) => {
         e.preventDefault()
         const submitData = {
             ...form,
-            title: movie.Title,
-            year: movie.Year,
-            type: movie.Type,
+            userId: userId,
             movie_id: movie.imdbID,
-            genre: movie.Genre
+            poster: movie.Poster,
+            title: movie.Title,
+            type: movie.Type,
+            year: movie.Year
         }
+        addFavorite(submitData)
         console.log('Favorite added', submitData)
         setForm({
             rating: 0,
-            comments: ''
+            comment: ''
         })
         handleClose()
     }
-
-    console.log(movie)
 
     return (
         <>
@@ -58,9 +75,13 @@ const AddFavModal = ({ movie }) => {
                                     value={form.rating} onChange={handleChange}>
                                     <option></option>
                                     <option value={1}>1 star</option>
+                                    <option value={1.5}>1 star</option>
                                     <option value={2}>2 stars</option>
+                                    <option value={2.5}>2 stars</option>
                                     <option value={3}>3 stars</option>
+                                    <option value={3.5}>3 stars</option>
                                     <option value={4}>4 stars</option>
+                                    <option value={4.5}>4 stars</option>
                                     <option value={5}>5 stars</option>
                                 </Form.Select>
                             </FloatingLabel>
@@ -70,8 +91,9 @@ const AddFavModal = ({ movie }) => {
                             <Form.Label><i style={{ color: 'blue' }} className="fas fa-comment"></i> Add your comments</Form.Label>
                             <Form.Control
                                 as='textarea'
+                                rows="5"
                                 placeholder='I thought this movie was....'
-                                name='comments' value={form.comments}
+                                name='comment' value={form.comment}
                                 onChange={handleChange}
                             />
                         </Form.Group>

@@ -39,14 +39,19 @@ const Header = () => {
                         <Nav className="ms-auto">
 
                             <Nav.Link><Link style={{ textDecoration: 'none' }} to='/'>Home</Link></Nav.Link>
-                            {authenticated && <Nav.Link><Link style={{ textDecoration: 'none' }} to='/results'>Search</Link></Nav.Link>}
+                            {authenticated &&
+                                <>
+                                    <Nav.Link><Link onClick={clearAll} style={{ textDecoration: 'none' }} to='/results'>Search</Link></Nav.Link>
+                                    <Nav.Link><Link style={{ textDecoration: 'none' }} to='/favorites'>Favorites</Link></Nav.Link>
+                                </>
+
+                            }
                             {!authenticated && <NavDropdown title="Log in" id="basic-nav-dropdown">
                                 <NavDropdown.Item><Link style={{ textDecoration: 'none' }} to='/login'>Log in</Link></NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item><Link style={{ textDecoration: 'none' }} to='/register'>Create account</Link></NavDropdown.Item>
                             </NavDropdown>}
                             {authenticated && <NavDropdown title={username} id='basic-nav-dropdown'>
-                                <NavDropdown.Item>My account</NavDropdown.Item>
                                 <NavDropdown.Item onClick={signOutUser}>Sign out</NavDropdown.Item>
                             </NavDropdown>}
                         </Nav>

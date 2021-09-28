@@ -8,3 +8,6 @@ export const CLEAR_ALL = 'CLEAR_ALL'
 // USER
 export const GET_USER_INFO = 'GET_USER_INFO'
 export const SIGN_OUT_USER = 'SIGN_OUT_USER'
+export const GET_FAVORITES = 'GET_FAVORITES'
+export const GET_FAV_INFO = 'GET_FAV_INFO'
+export const CLEAR_FAV_INFO = 'CLEAR_FAV_INFO'
