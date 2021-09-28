@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react'
-import AddFavModal from '../components/AddFavModal'
 import RemoveFavModal from '../components/RemoveFavModal'
 import { Row, Col, Image, Table, Container, Button, Accordion } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -139,7 +138,7 @@ const FavMediaScreen = ({ history, match }) => {
                                         <Accordion.Item eventKey='0'>
                                             <Accordion.Header>Your comments</Accordion.Header>
                                             <Accordion.Body>
-                                                {favInfo.comment.S}
+                                                {favInfo ? favInfo.comment.S : `No comments`}
                                             </Accordion.Body>
                                         </Accordion.Item>
                                     </Accordion>
