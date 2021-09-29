@@ -149,8 +149,8 @@ const AboutScreen = () => {
                                 <Accordion.Header>Technology</Accordion.Header>
                                 <Accordion.Body>
                                     <ul style={{ lineHeight: '1.8', fontSize: '1.1rem' }}>
-                                        <li><strong>Frontend</strong> - React and React Bootstrap</li>
-                                        <li><strong>Backend - AWS</strong> - Amplify, API Gateway, DynamoDB, Lambdas, Cognito</li>
+                                        <li><strong>Frontend</strong> - React, Context API with useReducer, React Bootstrap, Amplify</li>
+                                        <li><strong>Backend - AWS</strong> - API Gateway, DynamoDB, Lambdas, Cognito</li>
                                         <li><strong>Third-party database</strong> - Open Movie Database</li>
                                     </ul>
                                 </Accordion.Body>
