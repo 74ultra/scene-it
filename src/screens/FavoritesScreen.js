@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import UserContext from '../state/user/userContext'
 import FavoritesTable from '../components/FavoritesTable'
 import NoFavorites from '../components/NoFavorites'
@@ -9,8 +9,6 @@ import Footer from '../components/Footer'
 const FavoritesScreen = () => {
 
     const userContext = useContext(UserContext)
-
-    // console.log(userContext)
 
     const { userId, getUserFavorites, favorites } = userContext
 
@@ -25,7 +23,7 @@ const FavoritesScreen = () => {
 
 
     return (
-        <div>
+        <div style={{ padding: '0 0 100px' }}>
             {!favorites && <Loader />}
             {favorites && favorites.length < 1 && <NoFavorites />}
             {favorites && favorites.length > 0 && (

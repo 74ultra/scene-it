@@ -8,11 +8,9 @@ const AddFavModal = ({ movie }) => {
 
     console.log('UserContext', userContext.userId)
 
-    // const addFavorite = userContext.addFavorite
-
     const addFavorite = userContext.addFavorite
 
-    const userId = useContext(userContext)
+    const userId = userContext.userId
 
     const [show, setShow] = useState(false);
 
@@ -39,14 +37,13 @@ const AddFavModal = ({ movie }) => {
         const submitData = {
             ...form,
             userId: userId,
-            movie_id: movie.imdbID,
+            imdbID: movie.imdbID,
             poster: movie.Poster,
             title: movie.Title,
             type: movie.Type,
             year: movie.Year
         }
         addFavorite(submitData)
-        console.log('Favorite added', submitData)
         setForm({
             rating: 0,
             comment: ''

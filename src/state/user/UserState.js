@@ -76,8 +76,13 @@ const UserState = props => {
     }
 
     // ADD MEDIA TO DATABASE
-    const addFavorite = (favData) => {
-        console.log('Submitted from context', favData)
+    const addFavorite = async (favData) => {
+        try {
+            const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it`, favData)
+            console.log(res)
+        } catch (err) {
+            console.log('Error add movie to favorites: ', err)
+        }
     }
 
     // SIGN USER OUT AND CLEAR STATE

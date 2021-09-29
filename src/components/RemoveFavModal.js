@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Button, Form, Container, FloatingLabel } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 
 const RemoveFavModal = ({ movie }) => {
 

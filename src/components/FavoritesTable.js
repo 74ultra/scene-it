@@ -30,7 +30,7 @@ const FavoritesTable = ({ favorites }) => {
                             <td style={{ width: '40%', fontSize: '1.2rem' }}>{fav.title.S}</td>
                             <td style={{ width: '15%', textAlign: 'center', fontSize: '1.2rem' }}>{fav.year.S}</td>
                             <td style={{ width: '10%', textAlign: 'center', fontSize: '1.2rem' }}>{fav.type.S}</td>
-                            <td style={{ width: '25%', textAlign: 'center', fontSize: '1.2rem' }}><Rating value={parseInt(fav.rating.S)} /></td>
+                            <td style={{ width: '25%', textAlign: 'center', fontSize: '1.2rem' }}><Rating value={parseFloat(fav.rating.S)} /></td>
                             <td style={{ width: '10%', textAlign: 'center', fontSize: '1.2rem' }}><Button variant='secondary' size='sm' style={{ borderRadius: '3px', width: '30px' }}>...</Button></td>
                         </tr>
                     )

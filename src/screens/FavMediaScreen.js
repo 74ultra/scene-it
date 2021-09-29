@@ -108,7 +108,7 @@ const FavMediaScreen = ({ history, match }) => {
                                     </tr>
                                     <tr>
                                         <td>IMDb Rating</td>
-                                        <td>{titleInfo.imdbRating} - <em><small>{titleInfo.imdbVotes} votes</small></em></td>
+                                        <td>{titleInfo.imdbRating} - <em><small>{numbConverter(titleInfo.imdbVotes)}k votes</small></em></td>
                                     </tr>
                                 </tbody>
                             </Table>
@@ -116,7 +116,7 @@ const FavMediaScreen = ({ history, match }) => {
                         </Col>
                         <Col>
                             <Row style={{ textAlign: 'center' }}>
-                                {favInfo && <h3><Rating value={parseInt(favInfo.rating.S)} /></h3>}
+                                {favInfo && <h3><Rating value={parseFloat(favInfo.rating.S)} /></h3>}
                             </Row>
                             <Row>
                                 <Col style={{ textAlign: 'center', paddingBottom: '20px' }}>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const Rating = ({ value, text, color }) => {
 
-    console.log(value)
+    console.log('Value: ', value, typeof (value))
 
     return (
         <div className='rating'>

@@ -61,7 +61,6 @@ const SearchState = props => {
     // TITLE SEARCH (INDIVIDUAL)
     const titleSearch = async (params) => {
         const res = await axios.get(`https://www.omdbapi.com/?apikey=984fabcd&i=${params}&plot=full`)
-        console.log(res.data)
         dispatch({
             type: TITLE_SEARCH,
             payload: res.data
