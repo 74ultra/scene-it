@@ -28,17 +28,6 @@ const FavMediaScreen = ({ history, match }) => {
         titleSearch(params)
     }, [params])
 
-    const numbConverter = (stg) => {
-        let newStg = ''
-        for (let el of stg) {
-            if (el !== ',') {
-                newStg = newStg + el
-            }
-        }
-        const converted = (parseInt(newStg) / 1000).toFixed(0)
-        return converted
-    }
-
 
     return (
         <>
@@ -108,7 +97,7 @@ const FavMediaScreen = ({ history, match }) => {
                                     </tr>
                                     <tr>
                                         <td>IMDb Rating</td>
-                                        <td>{titleInfo.imdbRating} - <em><small>{numbConverter(titleInfo.imdbVotes)}k votes</small></em></td>
+                                        <td>{titleInfo.imdbRating} - <em><small>{titleInfo.imdbVotes}k votes</small></em></td>
                                     </tr>
                                 </tbody>
                             </Table>
