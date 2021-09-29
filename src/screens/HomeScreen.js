@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Container, Button, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/sceneItLogo1.svg'
@@ -28,9 +28,15 @@ const HomeScreen = () => {
     const { clearAll } = searchContext
 
     const userContext = useContext(UserContext)
-    const { authenticated } = userContext
+    const { authenticated, getUserFavorites, userId } = userContext
 
     const { search, rate, share } = homeScreenText
+
+    useEffect(() => {
+        if (authenticated) {
+            getUserFavorites(userId)
+        }
+    }, [authenticated])
 
     return (
         <div style={{ padding: '70px 0' }}>

@@ -49,6 +49,7 @@ const UserState = props => {
         try {
             const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/favs`, reqBody)
             favData = res.data.Items
+            console.log('Got favorites: ', favData)
         } catch (err) {
             console.log("There was a problem retrieving favorite: ", err)
         }
@@ -75,13 +76,27 @@ const UserState = props => {
         dispatch({ type: CLEAR_FAV_INFO })
     }
 
-    // ADD MEDIA TO DATABASE
+    // ADD ITEM TO FAVORITES
     const addFavorite = async (favData) => {
         try {
             const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it`, favData)
             console.log(res)
         } catch (err) {
             console.log('Error add movie to favorites: ', err)
+        }
+    }
+
+    // DELETE ITEM FROM FAVORITES
+    const deleteFavorite = async (imdbID) => {
+        const reqBody = {
+            "userId": `${state.userId}`,
+            "imdbID": `${imdbID}`
+        }
+        try {
+            const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/remove`, reqBody)
+            console.log(res)
+        } catch (err) {
+            console.log('Error deleting item: ', err)
         }
     }
 
@@ -120,6 +135,7 @@ const UserState = props => {
                 signIn,
                 addFavorite,
                 getFavInfo,
+                deleteFavorite,
                 username: state.username,
                 userId: state.userId,
                 favorites: state.favorites,

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useRef } from 'react'
 import RemoveFavModal from '../components/RemoveFavModal'
 import { Row, Col, Image, Table, Container, Button, Accordion } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -9,6 +9,17 @@ import SearchContext from '../state/search/searchContext'
 import UserContext from '../state/user/userContext'
 
 const FavMediaScreen = ({ history, match }) => {
+
+    const reviewRef = useRef()
+    const plotSumRef = useRef()
+
+    function handleReviewClick() {
+        reviewRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+
+    function handlePlotClick() {
+        plotSumRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
 
     const userContext = useContext(UserContext)
     const searchContext = useContext(SearchContext)
@@ -29,12 +40,12 @@ const FavMediaScreen = ({ history, match }) => {
         <>
             <Container style={{ padding: '15px 0' }}>
                 <Link to='/favorites'>
-                    <Button size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to favorites</Button>
+                    <Button size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to Favorites</Button>
                 </Link>
             </Container>
             {Object.keys(titleInfo) < 1 && favInfo
                 ? <Loader />
-                : <Container style={{ padding: '15px 0' }}>
+                : <Container style={{ padding: '15px 0 100px' }}>
 
                     <Row>
                         <Col>
@@ -50,7 +61,7 @@ const FavMediaScreen = ({ history, match }) => {
                                         <td>{titleInfo.Released}</td>
                                     </tr>
                                     <tr>
-                                        <td>MPAA Rating</td>
+                                        <td>Rated</td>
                                         <td>{titleInfo.Rated}</td>
                                     </tr>
                                     <tr>
@@ -107,20 +118,20 @@ const FavMediaScreen = ({ history, match }) => {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col style={{ padding: '25px 50px 0' }}>
-                                    <Accordion>
+                                <Col style={{ padding: '0 50px' }}>
+                                    <Accordion onClick={handleReviewClick}>
                                         <Accordion.Item eventKey='0'>
-                                            <Accordion.Header>Plot</Accordion.Header>
+                                            <Accordion.Header>Plot summary</Accordion.Header>
                                             <Accordion.Body>
                                                 {titleInfo.Plot}
                                             </Accordion.Body>
                                         </Accordion.Item>
                                     </Accordion>
                                     <br />
-                                    <Accordion>
+                                    <Accordion ref={plotSumRef} onClick={handleReviewClick}>
                                         <Accordion.Item eventKey='0'>
-                                            <Accordion.Header>Your comments</Accordion.Header>
-                                            <Accordion.Body>
+                                            <Accordion.Header>Your review</Accordion.Header>
+                                            <Accordion.Body ref={reviewRef}>
                                                 {favInfo ? favInfo.comment.S : `No comments`}
                                             </Accordion.Body>
                                         </Accordion.Item>
@@ -131,6 +142,7 @@ const FavMediaScreen = ({ history, match }) => {
                         </Col>
                     </Row>
                 </Container>
+
 
             }
             <Footer />

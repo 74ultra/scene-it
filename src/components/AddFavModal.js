@@ -83,7 +83,7 @@ const AddFavModal = ({ movie }) => {
 
                         </Form.Group>
                         <Form.Group style={{ padding: '20px 0' }}>
-                            <Form.Label><i style={{ color: 'blue' }} className="fas fa-comment"></i> Add your comments</Form.Label>
+                            <Form.Label><i style={{ color: 'blue' }} className="fas fa-comment"></i> Add your review</Form.Label>
                             <Form.Control
                                 as='textarea'
                                 rows="5"

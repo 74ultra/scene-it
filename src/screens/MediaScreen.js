@@ -1,21 +1,47 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
 import AddFavModal from '../components/AddFavModal'
 import { Row, Col, Image, Table, Container, Button, Accordion } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Footer from '../components/Footer'
 import SearchContext from '../state/search/searchContext'
+import UserContext from '../state/user/userContext'
 
-const MediaScreen = ({ history, match }) => {
+const MediaScreen = ({ match }) => {
+
+    const history = useHistory()
+
+    const plotSumRef = useRef()
+
+    function handlePlotClick() {
+        plotSumRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
 
     const searchContext = useContext(SearchContext)
+    const userContext = useContext(UserContext)
 
     const { titleInfo, titleSearch } = searchContext
+    const { favorites } = userContext
+
+    const [isFav, setIsFav] = useState(false)
+
+    const isFavorite = (id, favs) => {
+        if (favs) {
+            favs.forEach(fav => {
+                if (fav.imdbID.S === id) {
+                    setIsFav(true)
+                }
+            })
+        }
+    }
 
     const params = match.params.id
 
     useEffect(() => {
         titleSearch(params)
+        if (favorites) {
+            isFavorite(params, favorites)
+        }
     }, [params])
 
     const numbConverter = (stg) => {
@@ -31,7 +57,7 @@ const MediaScreen = ({ history, match }) => {
 
     return (
         <>
-            <Container style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+            <Container style={{ padding: '20px 0' }}>
                 <Link to='/results'>
                     <Button size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to search results</Button>
                 </Link>
@@ -55,7 +81,7 @@ const MediaScreen = ({ history, match }) => {
                                         <td>{titleInfo.Released}</td>
                                     </tr>
                                     <tr>
-                                        <td>MPAA Rating</td>
+                                        <td>Rated</td>
                                         <td>{titleInfo.Rated}</td>
                                     </tr>
                                     <tr>
@@ -100,9 +126,17 @@ const MediaScreen = ({ history, match }) => {
                                     </tr>
                                 </tbody>
                             </Table>
-                            <AddFavModal movie={titleInfo} />
+                            {isFav ?
+                                <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={() => history.push('/favorites')}>Go to Favorites</Button>
+                                : <AddFavModal movie={titleInfo} />}
                         </Col>
                         <Col>
+                            {isFav ?
+                                <Row style={{ textAlign: 'center', paddingBottom: '20px' }}>
+                                    <span style={{ fontSize: '1.1rem' }} ><small><i style={{ color: 'yellow' }} className={'fas fa-star'}></i> One of your Favorites</small></span>
+                                </Row>
+                                : null
+                            }
                             <Row>
                                 <Col style={{ textAlign: 'center', paddingBottom: '20px' }}>
                                     <Image src={titleInfo.Poster} />
@@ -111,11 +145,11 @@ const MediaScreen = ({ history, match }) => {
                             <Row>
 
                                 <Col style={{ padding: '0 50px' }}>
-                                    <Accordion defaultActiveKey='0'>
+                                    <Accordion defaultActiveKey='0' onClick={handlePlotClick}>
                                         <Accordion.Item eventKey='0'>
                                             <Accordion.Header>Plot summary</Accordion.Header>
                                             <Accordion.Body>
-                                                {titleInfo.Plot}
+                                                <p ref={plotSumRef}>{titleInfo.Plot}</p>
                                             </Accordion.Body>
                                         </Accordion.Item>
                                     </Accordion>
