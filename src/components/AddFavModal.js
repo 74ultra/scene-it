@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Modal, Button, Form, Container, FloatingLabel } from 'react-bootstrap'
 import UserContext from '../state/user/userContext';
 
-const AddFavModal = ({ movie }) => {
+const AddFavModal = ({ movie, toggleFav }) => {
 
     const userContext = useContext(UserContext)
 
@@ -46,13 +46,14 @@ const AddFavModal = ({ movie }) => {
             rating: 0,
             comment: ''
         })
+        toggleFav(true)
         handleClose()
     }
 
     return (
         <>
             <Button variant="primary" className='btn btn-lg btn-primary' style={{ width: '100%', borderRadius: '3px' }} onClick={handleShow}>
-                Add to favorites
+                Add to Favorites
             </Button>
 
             <Modal show={show} onHide={handleClose}>
@@ -102,7 +103,7 @@ const AddFavModal = ({ movie }) => {
                         Discard
                     </Button>
                     <Button variant="primary" onClick={handleSubmit}>
-                        Add to favorites
+                        Add to Favorites
                     </Button>
                 </Modal.Footer>
             </Modal>

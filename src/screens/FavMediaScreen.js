@@ -13,12 +13,8 @@ const FavMediaScreen = ({ history, match }) => {
     const reviewRef = useRef()
     const plotSumRef = useRef()
 
-    function handleReviewClick() {
-        reviewRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-
-    function handlePlotClick() {
-        plotSumRef.current.scrollIntoView({ behavior: 'smooth' })
+    function handleReviewClick(rf) {
+        rf.current.scrollIntoView({ behavior: 'smooth' })
     }
 
     const userContext = useContext(UserContext)
@@ -119,7 +115,7 @@ const FavMediaScreen = ({ history, match }) => {
                             </Row>
                             <Row>
                                 <Col style={{ padding: '0 50px' }}>
-                                    <Accordion onClick={handleReviewClick}>
+                                    <Accordion onClick={() => handleReviewClick(plotSumRef)}>
                                         <Accordion.Item eventKey='0'>
                                             <Accordion.Header>Plot summary</Accordion.Header>
                                             <Accordion.Body>
@@ -128,7 +124,7 @@ const FavMediaScreen = ({ history, match }) => {
                                         </Accordion.Item>
                                     </Accordion>
                                     <br />
-                                    <Accordion ref={plotSumRef} onClick={handleReviewClick}>
+                                    <Accordion ref={plotSumRef} onClick={() => handleReviewClick(reviewRef)}>
                                         <Accordion.Item eventKey='0'>
                                             <Accordion.Header>Your review</Accordion.Header>
                                             <Accordion.Body ref={reviewRef}>

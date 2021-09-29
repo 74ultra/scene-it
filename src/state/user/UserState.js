@@ -33,13 +33,16 @@ const UserState = props => {
         let user;
         try {
             user = await Auth.currentAuthenticatedUser()
+            console.log(user)
+
+            dispatch({
+                type: GET_USER_INFO,
+                payload: user
+            })
         } catch (err) {
             console.log('Get user error: ', err)
         }
-        dispatch({
-            type: GET_USER_INFO,
-            payload: user
-        })
+
     }
 
     // GET FAVORITES FROM DATABASE
@@ -49,7 +52,6 @@ const UserState = props => {
         try {
             const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/favs`, reqBody)
             favData = res.data.Items
-            console.log('Got favorites: ', favData)
         } catch (err) {
             console.log("There was a problem retrieving favorite: ", err)
         }

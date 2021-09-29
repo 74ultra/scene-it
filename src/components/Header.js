@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import Title from '../assets/homeTitle.svg'
@@ -10,13 +10,19 @@ const Header = () => {
     const userContext = useContext(UserContext)
     const searchContext = useContext(SearchContext)
 
-    const { authenticated, signOut, username } = userContext
+    const { authenticated, signOut, username, getUser } = userContext
     const { clearAll } = searchContext
 
     const signOutUser = () => {
         signOut()
         clearAll()
     }
+
+    useEffect(() => {
+        if (!authenticated) {
+            getUser()
+        }
+    }, [])
 
     return (
         <header>

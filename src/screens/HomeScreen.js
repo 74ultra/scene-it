@@ -47,9 +47,12 @@ const HomeScreen = () => {
 
                 </div>
                 <div style={{ width: '50%', margin: '0 auto', textAlign: 'center' }}>
-                    <Link onClick={clearAll} to='/results'>
-                        <Button style={{ width: '50%', backgroundColor: '#FB050C', color: 'white', fontSize: '1.2rem' }}>{authenticated ? `Start your search!` : `Sign in to get started!`}</Button>
-                    </Link>
+                    {authenticated && <Link onClick={clearAll} to='/results'>
+                        <Button style={{ width: '50%', backgroundColor: '#FB050C', color: 'white', fontSize: '1.2rem' }}>Start your search!</Button>
+                    </Link>}
+                    {!authenticated && <Link onClick={clearAll} to='/login'>
+                        <Button style={{ width: '50%', backgroundColor: '#FB050C', color: 'white', fontSize: '1.2rem' }}>Sign in to get started!</Button>
+                    </Link>}
                 </div>
             </div>
             <Container style={{ textAlign: 'center', width: '80%' }} fluid>

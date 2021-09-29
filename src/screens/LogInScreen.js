@@ -1,13 +1,15 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import UserContext from '../state/user/userContext'
 
 const LogInScreen = () => {
 
+    const history = useHistory()
+
     const userContext = useContext(UserContext)
 
-    const { signIn } = userContext
+    const { signIn, authenticated } = userContext
 
     const [creds, setCreds] = useState({
         username: '',
@@ -25,10 +27,13 @@ const LogInScreen = () => {
         e.preventDefault()
         const { username, password } = creds
         signIn(username, password)
-
-
     }
 
+    useEffect(() => {
+        if (authenticated) {
+            history.push('/')
+        }
+    }, [])
 
     return (
         <Container style={{ width: '50%', marginTop: '50px', border: '1px solid lightgrey', borderRadius: '10px' }}>

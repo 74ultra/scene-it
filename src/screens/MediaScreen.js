@@ -128,7 +128,7 @@ const MediaScreen = ({ match }) => {
                             </Table>
                             {isFav ?
                                 <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={() => history.push('/favorites')}>Go to Favorites</Button>
-                                : <AddFavModal movie={titleInfo} />}
+                                : <AddFavModal toggleFav={setIsFav} movie={titleInfo} />}
                         </Col>
                         <Col>
                             {isFav ?
