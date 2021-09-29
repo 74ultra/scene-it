@@ -13,14 +13,10 @@ const FavMediaScreen = ({ history, match }) => {
     const userContext = useContext(UserContext)
     const searchContext = useContext(SearchContext)
 
-    const { favorites, getFavInfo, favInfo } = userContext
+    const { getFavInfo, favInfo } = userContext
     const { titleInfo, titleSearch } = searchContext
 
     const params = match.params.id
-
-    console.log('Fav media favorites', favorites)
-    console.log('Title Info: ', titleInfo)
-
 
 
     useEffect(() => {
@@ -39,8 +35,6 @@ const FavMediaScreen = ({ history, match }) => {
             {Object.keys(titleInfo) < 1 && favInfo
                 ? <Loader />
                 : <Container style={{ padding: '15px 0' }}>
-                    {/* <h2>{titleInfo.Title} </h2>
-                    {favData && <h3><Rating value={parseInt(favData.rating.S)} /></h3>} */}
 
                     <Row>
                         <Col>

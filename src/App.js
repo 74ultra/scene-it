@@ -31,7 +31,7 @@ function App() {
               <Route exact path='/register' component={RegisterScreen} />
               <Route exact path='/confirm' component={Confirm} />
               <ProtectedRoute exact path='/favorites' component={FavoritesScreen} />
-              <Route exact path='/favorites/:id' component={FavMediaScreen} />
+              <ProtectedRoute exact path='/favorites/:id' component={FavMediaScreen} />
               <ProtectedRoute exact path='/results' component={ResultsScreen} />
               <ProtectedRoute exact path='/media/:id' component={MediaScreen} />
             </Container>

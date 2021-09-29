@@ -12,8 +12,6 @@ const FavoritesScreen = () => {
 
     const { userId, getUserFavorites, favorites } = userContext
 
-    console.log(userId)
-    console.log("Hello")
     useEffect(() => {
 
         getUserFavorites(userId)

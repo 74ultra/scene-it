@@ -20,13 +20,13 @@ const RemoveFavModal = ({ movie }) => {
                 keyboard={false}
             >
                 <Modal.Body>
-                    Do you want to remove <strong>{movie.Title}</strong> from your list of favorites? Click 'Yes' to confirm or 'No' to go back.
+                    Do you want to remove <strong>{movie.Title}</strong> from your list of favorites?
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        No
+                        Keep
                     </Button>
-                    <Button variant="primary">Yes</Button>
+                    <Button variant="primary">Remove</Button>
 
                 </Modal.Footer>
             </Modal>

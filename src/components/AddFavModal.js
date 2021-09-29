@@ -6,8 +6,6 @@ const AddFavModal = ({ movie }) => {
 
     const userContext = useContext(UserContext)
 
-    console.log('UserContext', userContext.userId)
-
     const addFavorite = userContext.addFavorite
 
     const userId = userContext.userId
