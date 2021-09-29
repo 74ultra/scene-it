@@ -26,7 +26,7 @@ const FavoritesScreen = () => {
             {favorites && favorites.length < 1 && <NoFavorites />}
             {favorites && favorites.length > 0 && (
                 <>
-                    <div style={{ padding: '80px 0 50px', textAlign: 'center' }}>
+                    <div style={{ padding: '60px 0 50px', textAlign: 'center' }}>
                         <img src={Favs} alt='Favorites logo' style={{ width: '400px' }} />
                     </div>
                     <FavoritesTable favorites={favorites} />

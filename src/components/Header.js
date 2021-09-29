@@ -45,6 +45,7 @@ const Header = () => {
                         <Nav className="ms-auto">
 
                             <Nav.Link><Link style={{ textDecoration: 'none' }} to='/'>Home</Link></Nav.Link>
+                            <Nav.Link><Link style={{ textDecoration: 'none' }} to='/about'>About</Link></Nav.Link>
                             {authenticated &&
                                 <>
                                     <Nav.Link><Link onClick={clearAll} style={{ textDecoration: 'none' }} to='/results'>Search</Link></Nav.Link>

@@ -16,6 +16,7 @@ import SearchState from './state/search/SearchState';
 import UserState from './state/user/UserState';
 
 import { ProtectedRoute } from './utils/ProtectedRoute';
+import AboutScreen from './screens/AboutScreen';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route exact path='/login' component={LogInScreen} />
               <Route exact path='/register' component={RegisterScreen} />
               <Route exact path='/confirm' component={Confirm} />
+              <Route exact path='/about' component={AboutScreen} />
               <ProtectedRoute exact path='/favorites' component={FavoritesScreen} />
               <ProtectedRoute exact path='/favorites/:id' component={FavMediaScreen} />
               <ProtectedRoute exact path='/results' component={ResultsScreen} />
