@@ -36,9 +36,9 @@ const AboutScreen = () => {
                                 <Accordion.Body>
                                     <ul style={{ lineHeight: '1.8', fontSize: '1.1rem' }}>
                                         <li><strong>User base</strong> - Movie lovers and those who want to share their media opinions with others and/or read review of friends and people of interest</li>
-                                        <li><strong>Revenue stream</strong> - Advertisers and filmmakers who looking to promote their work</li>
-                                        <li><strong>Key activity #1</strong> - Application development: particularly on share features and social media integration</li>
-                                        <li><strong>Key activity #2</strong> - Marketing/Customer Acquisiiton: application advertisement and endorsement/use by celebrities and influencers</li>
+                                        <li><strong>Revenue stream</strong> - Advertisers and filmmakers looking to promote their work</li>
+                                        <li><strong>Key activity #1</strong> - Application development: particularly on sharing features and social media integration</li>
+                                        <li><strong>Key activity #2</strong> - Marketing/Customer acquisiiton: application advertisement and endorsement/use by celebrities and influencers</li>
                                     </ul>
                                 </Accordion.Body>
                             </Accordion.Item>
