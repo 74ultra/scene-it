@@ -24,7 +24,6 @@ const FavoritesTable = ({ favorites }) => {
             </thead>
             <tbody>
                 {favorites.map(fav => {
-                    console.log(fav.title.S)
                     return (
                         <tr key={fav.imdbID.S} onClick={() => searchMedia(fav.imdbID.S)}>
                             <td style={{ width: '40%', fontSize: '1.2rem' }}>{fav.title.S}</td>
