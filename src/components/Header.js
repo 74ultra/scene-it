@@ -49,7 +49,6 @@ const Header = () => {
                             {authenticated &&
                                 <>
                                     <Nav.Link><Link onClick={clearAll} style={{ textDecoration: 'none' }} to='/results'>Search</Link></Nav.Link>
-                                    <Nav.Link><Link style={{ textDecoration: 'none' }} to='/favorites'>Favorites</Link></Nav.Link>
                                 </>
 
                             }
@@ -59,7 +58,12 @@ const Header = () => {
                                 <NavDropdown.Item><Link style={{ textDecoration: 'none' }} to='/register'>Create account</Link></NavDropdown.Item>
                             </NavDropdown>}
                             {authenticated && <NavDropdown title={username} id='basic-nav-dropdown'>
+                                <NavDropdown.Item><Link style={{ textDecoration: 'none' }} to='/collections'>Collections</Link></NavDropdown.Item>
+
+                                <NavDropdown.Item><Link style={{ textDecoration: 'none' }} to='/favorites'>All favorites</Link></NavDropdown.Item>
+                                <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={signOutUser}>Sign out</NavDropdown.Item>
+
                             </NavDropdown>}
                         </Nav>
                     </Navbar.Collapse>

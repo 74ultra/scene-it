@@ -127,13 +127,13 @@ const MediaScreen = ({ match }) => {
                                 </tbody>
                             </Table>
                             {isFav ?
-                                <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={() => history.push('/favorites')}>Go to Favorites</Button>
+                                <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={() => history.push('/collections')}>Go to Collections</Button>
                                 : <AddFavModal toggleFav={setIsFav} movie={titleInfo} />}
                         </Col>
                         <Col>
                             {isFav ?
                                 <Row style={{ textAlign: 'center', paddingBottom: '20px' }}>
-                                    <span style={{ fontSize: '1.1rem' }} ><small><i style={{ color: 'yellow' }} className={'fas fa-star'}></i> One of your Favorites</small></span>
+                                    <span style={{ fontSize: '1.1rem' }} ><small><i style={{ color: 'yellow' }} className={'fas fa-star'}></i> In your collections</small></span>
                                 </Row>
                                 : null
                             }

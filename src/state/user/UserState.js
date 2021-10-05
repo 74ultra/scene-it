@@ -5,12 +5,15 @@ import UserReducer from './userReducer'
 import { Auth } from 'aws-amplify'
 import axios from 'axios'
 
+import { colCleaner, favDataCleaner } from '../../utils/helpers'
+
 import {
     GET_USER_INFO,
     GET_FAVORITES,
     SIGN_OUT_USER,
     GET_FAV_INFO,
-    CLEAR_FAV_INFO
+    CLEAR_FAV_INFO,
+    GET_USER_COLLECTIONS
 } from '../types'
 
 
@@ -19,6 +22,7 @@ const UserState = props => {
         username: null,
         userId: null,
         favorites: null,
+        collections: null,
         favInfo: null,
         errorStatus: null,
         authenticated: false
@@ -52,6 +56,9 @@ const UserState = props => {
         try {
             const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/favs`, reqBody)
             favData = res.data.Items
+            const cleanedData = favDataCleaner(favData)
+            console.log("Cleaned data", cleanedData)
+
         } catch (err) {
             console.log("There was a problem retrieving favorite: ", err)
         }
@@ -60,6 +67,23 @@ const UserState = props => {
             payload: favData
         })
 
+    }
+
+    // GET LIST OF COLLECTION NAMES
+    const getUserCollections = async (userId) => {
+        const reqBody = { "userId": `${userId}` }
+        let colData;
+        try {
+            const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/lists`, reqBody)
+            colData = colCleaner(res.data)
+            console.log("Got colleciton names: ", colData)
+            dispatch({
+                type: GET_USER_COLLECTIONS,
+                payload: colData
+            })
+        } catch (err) {
+            console.log("Error retrieving user collections: ", err)
+        }
     }
 
     // GET INFO FOR INDIVIDUAL FAVORITE
@@ -125,7 +149,7 @@ const UserState = props => {
                 getUser()
             })
             .then(() => history.push('/'))
-            .catch((err) => console.log(err))
+            .catch((err) => console.log('Error signing in user: ', err))
     }
 
     return (
@@ -133,6 +157,7 @@ const UserState = props => {
             value={{
                 getUser,
                 getUserFavorites,
+                getUserCollections,
                 signOut,
                 signIn,
                 addFavorite,
@@ -141,6 +166,7 @@ const UserState = props => {
                 username: state.username,
                 userId: state.userId,
                 favorites: state.favorites,
+                collections: state.collections,
                 favInfo: state.favInfo,
                 authenticated: state.authenticated
             }}

@@ -28,13 +28,14 @@ const HomeScreen = () => {
     const { clearAll } = searchContext
 
     const userContext = useContext(UserContext)
-    const { authenticated, getUserFavorites, userId } = userContext
+    const { authenticated, getUserFavorites, getUserCollections, userId } = userContext
 
     const { search, rate, share } = homeScreenText
 
     useEffect(() => {
         if (authenticated) {
             getUserFavorites(userId)
+            getUserCollections(userId)
         }
     }, [authenticated])
 

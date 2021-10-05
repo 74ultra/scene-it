@@ -4,12 +4,15 @@ import Title from '../assets/homeTitle.svg'
 import Footer from '../components/Footer'
 
 const AboutScreen = () => {
+
+
     return (
         <>
-            <Container style={{ width: '50%' }} fluid>
+            <Container style={{ width: '60%' }} fluid>
                 <div style={{ textAlign: 'center', padding: '60px 0 50px' }}>
                     <img src={Title} alt='Scene-It Logo' style={{ width: '300px' }} />
                 </div>
+
                 <Row>
                     <Col>
                         <Accordion>

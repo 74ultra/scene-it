@@ -57,7 +57,7 @@ const ResultsScreen = () => {
                     })}
                 </tbody>
             </Table>}
-            <Row style={{ width: '75%', margin: '0 auto', padding: '20px 0' }}>
+            <Row style={{ width: '80%', margin: '0 auto', padding: '20px 0' }}>
                 <Col>
                     {results.Response === 'True' && page > 1 && <Button style={{ margin: '0 10px', borderRadius: '5px' }} size='sm' variant="info" onClick={previousPage}>&#x27F5; </Button>}
                 </Col>

@@ -19,9 +19,9 @@ const NoFavorites = () => {
 
     return (
         <>
-            <div style={{ padding: '95px 0 0', textAlign: 'center' }}>
-                <h4 style={{ margin: '0' }}>Looks like you haven't added any media to your Favorites page.</h4>
-                <Button style={{ margin: '25px 0 50px' }} onClick={handleSearchClick}>Start searching!</Button>
+            <div style={{ padding: '50px 0 0', textAlign: 'center' }}>
+                <h4 style={{ margin: '0' }}>Looks like you haven't added any media to your Collections.</h4>
+                <Button style={{ margin: '50px 0 50px' }} onClick={handleSearchClick}>Start searching!</Button>
             </div>
             {results.Response ? null :
                 <div style={{ margin: '0 auto', textAlign: 'center' }}>

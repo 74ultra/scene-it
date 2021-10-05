@@ -19,13 +19,13 @@ const RemoveFavModal = ({ movie }) => {
     const handleConfirm = () => {
         deleteFavorite(movie.imdbID)
         handleClose()
-        history.push('/favorites')
+        history.push('/collections')
     }
 
     return (
         <>
             <Button variant="primary" className='btn btn-lg btn-primary' style={{ width: '100%', borderRadius: '3px' }} onClick={handleShow}>
-                Remove from Favorites
+                Remove from Collection
             </Button>
             <Modal
                 show={show}
@@ -34,7 +34,7 @@ const RemoveFavModal = ({ movie }) => {
                 keyboard={false}
             >
                 <Modal.Body>
-                    Do you want to remove <strong>{movie.Title}</strong> from your list of favorites?
+                    Do you want to remove <strong>{movie.Title}</strong> from your collection?
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

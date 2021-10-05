@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import ResultsScreen from './screens/ResultsScreen'
 import MediaScreen from './screens/MediaScreen'
 import LogInScreen from './screens/LogInScreen';
+import CollectionsScreen from './screens/CollectionsScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import FavMediaScreen from './screens/FavMediaScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -32,6 +33,7 @@ function App() {
               <Route exact path='/register' component={RegisterScreen} />
               <Route exact path='/confirm' component={Confirm} />
               <Route exact path='/about' component={AboutScreen} />
+              <ProtectedRoute exact path='/collections' component={CollectionsScreen} />
               <ProtectedRoute exact path='/favorites' component={FavoritesScreen} />
               <ProtectedRoute exact path='/favorites/:id' component={FavMediaScreen} />
               <ProtectedRoute exact path='/results' component={ResultsScreen} />

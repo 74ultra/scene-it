@@ -11,7 +11,6 @@ import UserContext from '../state/user/userContext'
 const FavMediaScreen = ({ history, match }) => {
 
     const reviewRef = useRef()
-    const plotSumRef = useRef()
 
     function handleReviewClick(rf) {
         rf.current.scrollIntoView({ behavior: 'smooth' })
@@ -35,8 +34,8 @@ const FavMediaScreen = ({ history, match }) => {
     return (
         <>
             <Container style={{ padding: '15px 0' }}>
-                <Link to='/favorites'>
-                    <Button size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to Favorites</Button>
+                <Link to='/collections'>
+                    <Button size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to Collections</Button>
                 </Link>
             </Container>
             {Object.keys(titleInfo) < 1 && favInfo
@@ -115,23 +114,21 @@ const FavMediaScreen = ({ history, match }) => {
                             </Row>
                             <Row>
                                 <Col style={{ padding: '0 50px' }}>
-                                    <Accordion onClick={() => handleReviewClick(plotSumRef)}>
-                                        <Accordion.Item eventKey='0'>
+                                    <Accordion onClick={() => handleReviewClick(reviewRef)}>
+                                        <Accordion.Item style={{ padding: '0 0 10px' }} eventKey='0'>
                                             <Accordion.Header>Plot summary</Accordion.Header>
                                             <Accordion.Body>
                                                 {titleInfo.Plot}
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                    </Accordion>
-                                    <br />
-                                    <Accordion ref={plotSumRef} onClick={() => handleReviewClick(reviewRef)}>
-                                        <Accordion.Item eventKey='0'>
+                                        <Accordion.Item eventKey='1'>
                                             <Accordion.Header>Your review</Accordion.Header>
                                             <Accordion.Body ref={reviewRef}>
                                                 {favInfo ? favInfo.comment.S : `No comments`}
                                             </Accordion.Body>
                                         </Accordion.Item>
                                     </Accordion>
+
 
                                 </Col>
                             </Row>
