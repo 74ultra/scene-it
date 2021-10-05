@@ -4,7 +4,6 @@ import UserContext from '../state/user/userContext'
 import FavoritesTable from '../components/FavoritesTable'
 import NoFavorites from '../components/NoFavorites'
 import Loader from '../components/Loader'
-import Favs from '../assets/yourFavs.svg'
 import Footer from '../components/Footer'
 import { Container, Button, Col, Row } from 'react-bootstrap'
 

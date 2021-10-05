@@ -1,8 +1,11 @@
 import React, { useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Modal, Button, Form, Container, FloatingLabel, FormGroup } from 'react-bootstrap'
 import UserContext from '../state/user/userContext';
 
-const AddFavModal = ({ movie, toggleFav }) => {
+const UpdateFavModal = ({ movie }) => {
+
+    const history = useHistory()
 
     const userContext = useContext(UserContext)
 
@@ -11,6 +14,8 @@ const AddFavModal = ({ movie, toggleFav }) => {
     const userId = userContext.userId
     const username = userContext.username
     const collections = userContext.collections
+    const favInfo = userContext.favInfo
+
 
     const [show, setShow] = useState(false);
     const [newCol, setNewCol] = useState(!(collections.length > 0))
@@ -22,13 +27,21 @@ const AddFavModal = ({ movie, toggleFav }) => {
             comment: ''
         })
         setShow(false)
+
     };
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true)
+        setForm({
+            col: favInfo.col.S,
+            rating: favInfo.rating.S,
+            comment: favInfo.comment.S
+        })
+    };
 
     const [form, setForm] = useState({
-        col: '',
-        rating: 0,
-        comment: ''
+        col: favInfo.col.S,
+        rating: favInfo.rating.S,
+        comment: favInfo.comment.S
     })
 
     const handleChange = e => {
@@ -41,29 +54,31 @@ const AddFavModal = ({ movie, toggleFav }) => {
             ...form,
             userId: userId,
             username: username,
-            imdbID: movie.imdbID,
-            poster: movie.Poster,
-            title: movie.Title,
-            type: movie.Type,
-            year: movie.Year
+            imdbID: favInfo.imdbID.S,
+            poster: favInfo.poster.S,
+            title: favInfo.title.S,
+            type: favInfo.type.S,
+            year: favInfo.year.S
         }
         addFavorite(submitData)
-        setForm({
-            col: '',
-            rating: 0,
-            comment: ''
-        })
-        toggleFav(true)
         handleClose()
+        setTimeout(() => {
+            history.push('/collections')
+        }, 500)
+
     }
 
     return (
         <>
-            <Button variant="primary" className='btn btn-lg btn-primary' style={{ width: '100%', borderRadius: '3px' }} onClick={handleShow}>
-                Add to collection
+            <Button variant="secondary" className='btn btn-lg btn-primary' style={{ margin: '0 0 0 5px', width: '100%', borderRadius: '3px' }} onClick={handleShow}>
+                Edit your review
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop='static'
+            >
                 <Modal.Header closeButton>
                     <Modal.Title>{movie.Title}</Modal.Title>
                 </Modal.Header>
@@ -147,7 +162,7 @@ const AddFavModal = ({ movie, toggleFav }) => {
                         Discard
                     </Button>
                     <Button variant="primary" onClick={handleSubmit}>
-                        Add to Collection
+                        Update
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -155,4 +170,4 @@ const AddFavModal = ({ movie, toggleFav }) => {
     )
 }
 
-export default AddFavModal
+export default UpdateFavModal

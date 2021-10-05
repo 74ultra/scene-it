@@ -27,10 +27,10 @@ const FavoritesTable = ({ favorites }) => {
                 {favorites.map(fav => {
                     return (
                         <tr key={fav.imdbID.S} onClick={() => searchMedia(fav.imdbID.S)}>
-                            <td style={{ width: '30%', fontSize: '1.1rem' }}>{fav.title.S}</td>
+                            <td style={{ width: '20%', fontSize: '1.1rem' }}>{fav.title.S}</td>
                             <td style={{ width: '15%', textAlign: 'center', fontSize: '1.1rem' }}>{fav.year.S}</td>
                             <td style={{ width: '10%', textAlign: 'center', fontSize: '1.1rem' }}>{fav.type.S}</td>
-                            <td style={{ width: '10%', textAlign: 'center', fontSize: '1.1rem' }}>{fav.col.S}</td>
+                            <td style={{ width: '20%', textAlign: 'center', fontSize: '1.1rem' }}>{fav.col.S}</td>
                             <td style={{ width: '15%', textAlign: 'center', fontSize: '1.1rem' }}><Rating value={parseFloat(fav.rating.S)} /></td>
                             <td style={{ width: '10%', textAlign: 'center', fontSize: '1.1rem' }}><Button variant='secondary' size='sm' style={{ borderRadius: '3px', width: '30px' }}>...</Button></td>
                         </tr>

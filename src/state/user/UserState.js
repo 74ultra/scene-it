@@ -56,16 +56,15 @@ const UserState = props => {
         try {
             const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/favs`, reqBody)
             favData = res.data.Items
-            const cleanedData = favDataCleaner(favData)
-            console.log("Cleaned data", cleanedData)
-
+            // const cleanedData = favDataCleaner(favData)
+            dispatch({
+                type: GET_FAVORITES,
+                payload: favData
+            })
         } catch (err) {
             console.log("There was a problem retrieving favorite: ", err)
         }
-        dispatch({
-            type: GET_FAVORITES,
-            payload: favData
-        })
+
 
     }
 
@@ -76,7 +75,6 @@ const UserState = props => {
         try {
             const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/lists`, reqBody)
             colData = colCleaner(res.data)
-            console.log("Got colleciton names: ", colData)
             dispatch({
                 type: GET_USER_COLLECTIONS,
                 payload: colData

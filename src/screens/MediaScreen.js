@@ -77,10 +77,6 @@ const MediaScreen = ({ match }) => {
                                         <td>{titleInfo.Year}</td>
                                     </tr>
                                     <tr>
-                                        <td>Released</td>
-                                        <td>{titleInfo.Released}</td>
-                                    </tr>
-                                    <tr>
                                         <td>Rated</td>
                                         <td>{titleInfo.Rated}</td>
                                     </tr>
@@ -121,8 +117,8 @@ const MediaScreen = ({ match }) => {
                                         <td>{titleInfo.Metascore}</td>
                                     </tr>
                                     <tr>
-                                        <td>IMDb Rating</td>
-                                        <td>{titleInfo.imdbRating} - <em><small>{numbConverter(titleInfo.imdbVotes)}k votes</small></em></td>
+                                        <td>Rating</td>
+                                        <td>{titleInfo.imdbRating} - <em><small>{numbConverter(titleInfo.imdbVotes)}k votes IMDb</small></em></td>
                                     </tr>
                                 </tbody>
                             </Table>

@@ -7,8 +7,6 @@ const CollectionItemsAcc = ({ title, favs }) => {
 
     const colItems = favs.filter(fav => fav.col.S === title)
 
-    console.log('colItems', colItems, title)
-
     const history = useHistory();
 
     const searchMedia = (id) => {

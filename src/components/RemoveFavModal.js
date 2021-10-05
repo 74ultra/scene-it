@@ -24,8 +24,8 @@ const RemoveFavModal = ({ movie }) => {
 
     return (
         <>
-            <Button variant="primary" className='btn btn-lg btn-primary' style={{ width: '100%', borderRadius: '3px' }} onClick={handleShow}>
-                Remove from Collection
+            <Button variant="primary" className='btn btn-lg btn-primary' style={{ margin: '0 5px 0 0', width: '100%', borderRadius: '3px' }} onClick={handleShow}>
+                Remove from collection
             </Button>
             <Modal
                 show={show}

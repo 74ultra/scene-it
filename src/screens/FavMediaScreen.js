@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useRef } from 'react'
 import RemoveFavModal from '../components/RemoveFavModal'
+import UpdateFavModal from '../components/UpdateFavModal'
 import { Row, Col, Image, Table, Container, Button, Accordion } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
@@ -28,7 +29,7 @@ const FavMediaScreen = ({ history, match }) => {
     useEffect(() => {
         getFavInfo(params)
         titleSearch(params)
-    }, [params])
+    }, [])
 
 
     return (
@@ -44,16 +45,13 @@ const FavMediaScreen = ({ history, match }) => {
 
                     <Row>
                         <Col>
-                            <h2>{titleInfo.Title} </h2>
+                            <h2 style={{ display: 'inline' }}>{titleInfo.Title}</h2>
+                            {favInfo && favInfo.col.S && <p>Collection: <strong>{favInfo.col.S}</strong></p>}
                             <Table>
                                 <tbody>
                                     <tr>
                                         <td>Year</td>
                                         <td>{titleInfo.Year}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Released</td>
-                                        <td>{titleInfo.Released}</td>
                                     </tr>
                                     <tr>
                                         <td>Rated</td>
@@ -96,12 +94,16 @@ const FavMediaScreen = ({ history, match }) => {
                                         <td>{titleInfo.Metascore}</td>
                                     </tr>
                                     <tr>
-                                        <td>IMDb Rating</td>
-                                        <td>{titleInfo.imdbRating} - <em><small>{titleInfo.imdbVotes}k votes</small></em></td>
+                                        <td>Rating</td>
+                                        <td>{titleInfo.imdbRating} - <em><small>{titleInfo.imdbVotes}k votes IMDb</small></em></td>
                                     </tr>
                                 </tbody>
                             </Table>
-                            <RemoveFavModal movie={titleInfo} />
+                            <div style={{ display: 'flex' }}>
+                                {favInfo && favInfo.col.S && <RemoveFavModal colName={favInfo.col.S} movie={titleInfo} />}
+                                {favInfo && <UpdateFavModal movie={titleInfo} />}
+                            </div>
+
                         </Col>
                         <Col>
                             <Row style={{ textAlign: 'center' }}>
