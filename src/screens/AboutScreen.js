@@ -8,7 +8,7 @@ const AboutScreen = () => {
 
     return (
         <>
-            <Container style={{ width: '60%' }} fluid>
+            <Container style={{ width: '60%', padding: '0 0 100px' }} fluid>
                 <div style={{ textAlign: 'center', padding: '60px 0 50px' }}>
                     <img src={Title} alt='Scene-It Logo' style={{ width: '300px' }} />
                 </div>
@@ -169,10 +169,9 @@ const AboutScreen = () => {
                                 <Accordion.Header>Feature Backlog</Accordion.Header>
                                 <Accordion.Body>
                                     <ul style={{ lineHeight: '1.8', fontSize: '1.1rem' }}>
-                                        <li><strong>Update</strong> - Ability to update existing reviews and ratings attached to favorites</li>
                                         <li><strong>Advanced search</strong> - Search by movie title, type, and year released </li>
                                         <li><strong>Sharing</strong> - Ability to make user collections publically available</li>
-                                        <li><strong>Error handling</strong> - Login flow and database calls</li>
+                                        <li><strong>Sharing</strong> - Ability to search for a particular user</li>
                                     </ul>
                                 </Accordion.Body>
                             </Accordion.Item>

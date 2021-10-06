@@ -3,7 +3,8 @@ import {
     NEXT_SEARCH_PAGE,
     PREVIOUS_SEARCH_PAGE,
     INITIAL_SEARCH,
-    TITLE_SEARCH
+    TITLE_SEARCH,
+    CLEAR_TITLE_INFO
 } from '../types'
 
 export default (state, action) => {
@@ -20,6 +21,11 @@ export default (state, action) => {
                 ...state,
                 titleInfo: action.payload
             };
+        case CLEAR_TITLE_INFO:
+            return {
+                ...state,
+                titleInfo: {}
+            }
         case NEXT_SEARCH_PAGE:
             return {
                 ...state,

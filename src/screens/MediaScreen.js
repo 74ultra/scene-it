@@ -20,8 +20,8 @@ const MediaScreen = ({ match }) => {
     const searchContext = useContext(SearchContext)
     const userContext = useContext(UserContext)
 
-    const { titleInfo, titleSearch } = searchContext
-    const { favorites } = userContext
+    const { titleInfo, titleSearch, clearTitleInfo } = searchContext
+    const { favorites, authenticated } = userContext
 
     const [isFav, setIsFav] = useState(false)
 
@@ -59,7 +59,7 @@ const MediaScreen = ({ match }) => {
         <>
             <Container style={{ padding: '20px 0' }}>
                 <Link to='/results'>
-                    <Button size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to search results</Button>
+                    <Button onClick={clearTitleInfo} size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to search results</Button>
                 </Link>
             </Container>
 
@@ -122,16 +122,14 @@ const MediaScreen = ({ match }) => {
                                     </tr>
                                 </tbody>
                             </Table>
-                            {isFav ?
-                                <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={() => history.push('/collections')}>Go to Collections</Button>
-                                : <AddFavModal toggleFav={setIsFav} movie={titleInfo} />}
+                            {isFav && <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={() => history.push('/collections')}>Go to Collections</Button>}
+                            {authenticated && !isFav && <AddFavModal toggleFav={setIsFav} movie={titleInfo} />}
                         </Col>
                         <Col>
-                            {isFav ?
+                            {authenticated && isFav &&
                                 <Row style={{ textAlign: 'center', paddingBottom: '20px' }}>
                                     <span style={{ fontSize: '1.1rem' }} ><small><i style={{ color: 'yellow' }} className={'fas fa-star'}></i> In your collections</small></span>
                                 </Row>
-                                : null
                             }
                             <Row>
                                 <Col style={{ textAlign: 'center', paddingBottom: '20px' }}>

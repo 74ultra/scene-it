@@ -4,14 +4,19 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import Title from '../assets/homeTitle.svg'
 import UserContext from '../state/user/userContext'
 import SearchContext from '../state/search/searchContext'
+import PublicContext from '../state/public/publicContext'
+
 
 const Header = () => {
 
     const userContext = useContext(UserContext)
     const searchContext = useContext(SearchContext)
+    const publicContext = useContext(PublicContext)
 
     const { authenticated, signOut, username, getUser } = userContext
     const { clearAll } = searchContext
+    const { changePublicView } = publicContext
+
 
     const signOutUser = () => {
         signOut()
@@ -46,12 +51,8 @@ const Header = () => {
 
                             <Nav.Link><Link style={{ textDecoration: 'none' }} to='/'>Home</Link></Nav.Link>
                             <Nav.Link><Link style={{ textDecoration: 'none' }} to='/about'>About</Link></Nav.Link>
-                            {authenticated &&
-                                <>
-                                    <Nav.Link><Link onClick={clearAll} style={{ textDecoration: 'none' }} to='/results'>Search</Link></Nav.Link>
-                                </>
-
-                            }
+                            <Nav.Link><Link onClick={() => changePublicView(1)} style={{ textDecoration: 'none' }} to='/public'>Discover</Link></Nav.Link>
+                            <Nav.Link><Link onClick={clearAll} style={{ textDecoration: 'none' }} to='/results'>Search</Link></Nav.Link>
                             {!authenticated && <NavDropdown title="Log in" id="basic-nav-dropdown">
                                 <NavDropdown.Item><Link style={{ textDecoration: 'none' }} to='/login'>Log in</Link></NavDropdown.Item>
                                 <NavDropdown.Divider />

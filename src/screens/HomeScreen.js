@@ -11,6 +11,7 @@ import Footer from '../components/Footer'
 
 import SearchContext from '../state/search/searchContext'
 import UserContext from '../state/user/userContext'
+import PublicContext from '../state/public/publicContext'
 
 import { homeScreenText } from '../assets/data'
 
@@ -30,12 +31,17 @@ const HomeScreen = () => {
     const userContext = useContext(UserContext)
     const { authenticated, getUserFavorites, getUserCollections, userId } = userContext
 
+    const publicContext = useContext(PublicContext)
+    const { clearAllPublic } = publicContext
+
     const { search, rate, share } = homeScreenText
 
     useEffect(() => {
+        clearAllPublic()
         if (authenticated) {
             getUserFavorites(userId)
             getUserCollections(userId)
+
         }
     }, [authenticated])
 
@@ -48,12 +54,10 @@ const HomeScreen = () => {
 
                 </div>
                 <div style={{ width: '50%', margin: '0 auto', textAlign: 'center' }}>
-                    {authenticated && <Link onClick={clearAll} to='/results'>
+                    <Link onClick={clearAll} to='/results'>
                         <Button style={{ width: '50%', backgroundColor: '#FB050C', color: 'white', fontSize: '1.2rem' }}>Start your search!</Button>
-                    </Link>}
-                    {!authenticated && <Link onClick={clearAll} to='/login'>
-                        <Button style={{ width: '50%', backgroundColor: '#FB050C', color: 'white', fontSize: '1.2rem' }}>Sign in to get started!</Button>
-                    </Link>}
+                    </Link>
+
                 </div>
             </div>
             <Container style={{ textAlign: 'center', width: '80%' }} fluid>

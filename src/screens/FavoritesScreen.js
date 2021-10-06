@@ -34,9 +34,6 @@ const FavoritesScreen = () => {
             {favorites && favorites.length < 1 && <NoFavorites />}
             {favorites && favorites.length > 0 && (
                 <>
-                    {/* <div style={{ padding: '60px 0 50px', textAlign: 'center' }}>
-                        <img src={Favs} alt='Favorites logo' style={{ width: '400px' }} />
-                    </div> */}
                     <Row>
                         <Col style={{ margin: '0 0 20px' }}>
                             <Button onClick={() => history.push('/collections')}>See collections</Button>

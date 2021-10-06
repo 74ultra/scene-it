@@ -32,6 +32,7 @@ const AltSearchForm = () => {
     const clearScreen = () => {
         clearAll()
         setShowError(false)
+        setSearchTitle('')
     }
 
     return (

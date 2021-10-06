@@ -8,7 +8,8 @@ import {
     NEXT_SEARCH_PAGE,
     PREVIOUS_SEARCH_PAGE,
     TITLE_SEARCH,
-    CLEAR_ALL
+    CLEAR_ALL,
+    CLEAR_TITLE_INFO
 } from '../types'
 
 
@@ -44,7 +45,7 @@ const SearchState = props => {
         })
     }
 
-    // NEXT PAGE OF SEARCH RESULTS
+    // PREVIOUS PAGE OF SEARCH RESULTS
     const previousPage = async () => {
         let pageNumber = state.page - 1
         if (pageNumber < 1) {
@@ -68,6 +69,9 @@ const SearchState = props => {
 
     }
 
+    // CLEAR TITLE INFORMATION
+    const clearTitleInfo = () => dispatch({ type: CLEAR_TITLE_INFO })
+
     // CLEAR SEARCH STATE FOR NEW SEARCH
     const clearAll = () => dispatch({ type: CLEAR_ALL })
 
@@ -82,6 +86,7 @@ const SearchState = props => {
                 titleSearch,
                 nextPage,
                 previousPage,
+                clearTitleInfo,
                 clearAll
             }}
         >

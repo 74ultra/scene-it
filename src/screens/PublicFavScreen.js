@@ -1,139 +1,114 @@
-import React, { useEffect, useContext, useRef } from 'react'
-import RemoveFavModal from '../components/RemoveFavModal'
-import UpdateFavModal from '../components/UpdateFavModal'
+import React, { useContext } from 'react'
 import { Row, Col, Image, Table, Container, Button, Accordion } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Rating from '../components/Rating'
 import Footer from '../components/Footer'
-import SearchContext from '../state/search/searchContext'
-import UserContext from '../state/user/userContext'
 
-const FavMediaScreen = ({ match }) => {
+import PublicContext from '../state/public/publicContext'
+
+const PublicFavScreen = () => {
 
     const history = useHistory()
 
-    const reviewRef = useRef()
-
-    function handleReviewClick(rf) {
-        rf.current.scrollIntoView({ behavior: 'smooth' })
-    }
-
-    const userContext = useContext(UserContext)
-    const searchContext = useContext(SearchContext)
-
-    const { getFavInfo, favInfo, clearFavInfo } = userContext
-    const { titleInfo, titleSearch, clearTitleInfo } = searchContext
-
-    const params = match.params.id
-
-
-    useEffect(() => {
-        getFavInfo(params)
-        titleSearch(params)
-    }, [])
+    const publicContext = useContext(PublicContext)
+    const { selectedFav, selectedInfo, changePublicView, clearSelectedFav } = publicContext
 
     const handleBack = () => {
-        clearFavInfo()
-        clearTitleInfo()
-        history.push('/collections')
+        changePublicView(2)
+        clearSelectedFav()
+        history.push('/public')
     }
-
 
     return (
         <>
             <Container style={{ padding: '15px 0' }}>
-                <Button onClick={handleBack} size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to Collections</Button>
-
+                <Button onClick={handleBack} size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back</Button>
             </Container>
-            {Object.keys(titleInfo) < 1 && favInfo
+            {Object.keys(selectedFav) < 1 && selectedInfo
                 ? <Loader />
                 : <Container style={{ padding: '15px 0 100px' }}>
 
                     <Row>
                         <Col>
-                            <h2 style={{ display: 'inline' }}>{titleInfo.Title}</h2>
-                            {favInfo && favInfo.col.S && <p>Collection: <strong>{favInfo.col.S}</strong></p>}
+                            <h2 style={{ display: 'inline' }}>{selectedFav.Title}</h2>
+                            {selectedInfo && selectedInfo.col && <p>Collection: <strong>{selectedInfo.col}</strong></p>}
                             <Table>
                                 <tbody>
                                     <tr>
                                         <td>Year</td>
-                                        <td>{titleInfo.Year}</td>
+                                        <td>{selectedFav.Year}</td>
                                     </tr>
                                     <tr>
                                         <td>Rated</td>
-                                        <td>{titleInfo.Rated}</td>
+                                        <td>{selectedFav.Rated}</td>
                                     </tr>
                                     <tr>
                                         <td>Director</td>
-                                        <td>{titleInfo.Director}</td>
+                                        <td>{selectedFav.Director}</td>
                                     </tr>
                                     <tr>
                                         <td>Writer(s)</td>
-                                        <td>{titleInfo.Writer}</td>
+                                        <td>{selectedFav.Writer}</td>
                                     </tr>
                                     <tr>
                                         <td>Actors</td>
-                                        <td>{titleInfo.Actors}</td>
+                                        <td>{selectedFav.Actors}</td>
                                     </tr>
                                     <tr>
                                         <td>Awards</td>
-                                        <td>{titleInfo.Awards}</td>
+                                        <td>{selectedFav.Awards}</td>
                                     </tr>
                                     <tr>
                                         <td>Type</td>
-                                        <td>{titleInfo.Type}</td>
+                                        <td>{selectedFav.Type}</td>
                                     </tr>
                                     <tr>
                                         <td>Genre</td>
-                                        <td>{titleInfo.Genre}</td>
+                                        <td>{selectedFav.Genre}</td>
                                     </tr>
                                     <tr>
                                         <td>Runtime</td>
-                                        <td>{titleInfo.Runtime}</td>
+                                        <td>{selectedFav.Runtime}</td>
                                     </tr>
                                     <tr>
                                         <td>Country</td>
-                                        <td>{titleInfo.Country}</td>
+                                        <td>{selectedFav.Country}</td>
                                     </tr>
                                     <tr>
                                         <td>Metascore</td>
-                                        <td>{titleInfo.Metascore}</td>
+                                        <td>{selectedFav.Metascore}</td>
                                     </tr>
                                     <tr>
                                         <td>Rating</td>
-                                        <td>{titleInfo.imdbRating} - <em><small>{titleInfo.imdbVotes}k votes IMDb</small></em></td>
+                                        <td>{selectedFav.imdbRating} - <em><small>{selectedFav.imdbVotes}k votes IMDb</small></em></td>
                                     </tr>
                                 </tbody>
                             </Table>
-                            <div style={{ display: 'flex' }}>
-                                {favInfo && favInfo.col.S && <RemoveFavModal colName={favInfo.col.S} movie={titleInfo} />}
-                                {favInfo && <UpdateFavModal movie={titleInfo} />}
-                            </div>
 
                         </Col>
                         <Col>
                             <Row style={{ textAlign: 'center' }}>
-                                {favInfo && <h3><Rating value={parseFloat(favInfo.rating.S)} /></h3>}
+                                {selectedInfo && <h3><Rating value={parseFloat(selectedInfo.rating)} /></h3>}
                             </Row>
                             <Row>
                                 <Col style={{ textAlign: 'center', paddingBottom: '20px' }}>
-                                    <Image src={titleInfo.Poster} />
+                                    <Image src={selectedFav.Poster} />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col style={{ padding: '0 50px' }}>
-                                    <Accordion onClick={() => handleReviewClick(reviewRef)}>
+                                    <Accordion>
                                         <Accordion.Item style={{ padding: '0 0 10px' }} eventKey='0'>
                                             <Accordion.Header>Plot summary</Accordion.Header>
                                             <Accordion.Body>
-                                                {titleInfo.Plot}
+                                                {selectedFav.Plot}
                                             </Accordion.Body>
                                         </Accordion.Item>
                                         <Accordion.Item eventKey='1'>
-                                            <Accordion.Header>Your review</Accordion.Header>
-                                            <Accordion.Body ref={reviewRef}>
-                                                {favInfo ? favInfo.comment.S : `No comments`}
+                                            <Accordion.Header>{selectedInfo.username}'s review</Accordion.Header>
+                                            <Accordion.Body>
+                                                {selectedInfo ? selectedInfo.comment : `No comments`}
                                             </Accordion.Body>
                                         </Accordion.Item>
                                     </Accordion>
@@ -152,4 +127,4 @@ const FavMediaScreen = ({ match }) => {
     )
 }
 
-export default FavMediaScreen
+export default PublicFavScreen

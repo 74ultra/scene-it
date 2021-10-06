@@ -4,7 +4,9 @@ import {
     GET_FAVORITES,
     GET_FAV_INFO,
     CLEAR_FAV_INFO,
-    GET_USER_COLLECTIONS
+    GET_USER_COLLECTIONS,
+    SET_ERROR_STATUS,
+    SET_TEMP_CREDS
 } from '../types'
 
 export default (state, action) => {
@@ -14,7 +16,8 @@ export default (state, action) => {
                 ...state,
                 username: action.payload.username,
                 userId: action.payload.attributes.sub,
-                authenticated: true
+                authenticated: true,
+                tempCreds: null
             };
         case GET_FAVORITES:
             return {
@@ -36,6 +39,11 @@ export default (state, action) => {
                 ...state,
                 collections: action.payload
             }
+        case SET_TEMP_CREDS:
+            return {
+                ...state,
+                tempCreds: action.payload
+            }
         case SIGN_OUT_USER:
             return {
                 ...state,
@@ -45,7 +53,13 @@ export default (state, action) => {
                 collections: null,
                 favInfo: null,
                 errorStatus: null,
-                authenticated: false
+                authenticated: false,
+                tempCreds: null
+            }
+        case SET_ERROR_STATUS:
+            return {
+                ...state,
+                errorStatus: action.payload
             }
         default:
             return state
