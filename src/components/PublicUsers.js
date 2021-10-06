@@ -16,7 +16,7 @@ const PublicUsers = ({ setView }) => {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
             {userList && userList.map(user => {
                 return (
                     <Card style={{ width: '16rem', margin: '0 5px' }}>
