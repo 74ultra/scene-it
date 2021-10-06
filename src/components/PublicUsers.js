@@ -19,7 +19,7 @@ const PublicUsers = ({ setView }) => {
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
             {userList && userList.map(user => {
                 return (
-                    <Card style={{ width: '16rem', margin: '0 5px' }}>
+                    <Card style={{ width: '16rem', margin: '10px 5px' }}>
                         <Card.Body>
                             <Card.Title>{user.username}</Card.Title>
                             <Card.Text>{user.count} items(s) reviewed</Card.Text>
