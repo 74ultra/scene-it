@@ -22,7 +22,7 @@ import {
 const UserState = props => {
     const initialState = {
         username: null,
-        userId: null,
+        userid: null,
         favorites: null,
         collections: null,
         favInfo: null,
@@ -66,8 +66,6 @@ const UserState = props => {
         } catch (err) {
             console.log("There was a problem retrieving favorite: ", err)
         }
-
-
     }
 
     // GET LIST OF COLLECTION NAMES
@@ -124,6 +122,7 @@ const UserState = props => {
         }
     }
 
+
     // STORE USERNAME AND EMAIL TEMPORARILY TO HANLDE CONFIRMATION ERRORS
     const setTempCredentials = (creds) => {
         console.log('set temp: ', creds)
@@ -150,6 +149,7 @@ const UserState = props => {
             })
     }
 
+    // SIGN IN
     const signIn = (userName, passWord) => {
         Auth.signIn(userName, passWord)
             .then(res => {
@@ -216,6 +216,7 @@ const UserState = props => {
         })
     }
 
+
     return (
         <UserContext.Provider
             value={{
@@ -235,7 +236,7 @@ const UserState = props => {
                 confirmNewAccount,
                 createNewAccount,
                 username: state.username,
-                userId: state.userId,
+                userid: state.userid,
                 favorites: state.favorites,
                 collections: state.collections,
                 favInfo: state.favInfo,

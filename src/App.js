@@ -17,7 +17,8 @@ import Confirm from './screens/Confirm';
 
 import SearchState from './state/search/SearchState';
 import UserState from './state/user/UserState';
-import PublicState from './state/public/PublicState'
+import PublicState from './state/public/PublicState';
+import MediaState from './state/media/MediaState';
 
 import { ProtectedRoute } from './utils/ProtectedRoute';
 import PublicFavScreen from './screens/PublicFavScreen';
@@ -28,32 +29,34 @@ import PublicFavScreen from './screens/PublicFavScreen';
 function App() {
   return (
     <Router>
-      <UserState>
-        <SearchState>
-          <PublicState>
-            <Header />
-            <main>
-              <Route exact path='/' component={HomeScreen} />
-              <Container style={{ padding: '80px 0 50px' }}>
-                <Route exact path='/login' component={LogInScreen} />
-                <Route exact path='/register' component={RegisterScreen} />
-                <Route exact path='/confirm' component={Confirm} />
-                <Route exact path='/about' component={AboutScreen} />
-                <Route exact path='/public' component={PublicColScreen} />
-                <Route exact path='/public/:id' component={PublicFavScreen} />
-                <Route exact path='/results' component={ResultsScreen} />
-                <Route exact path='/media/:id' component={MediaScreen} />
-                <ProtectedRoute exact path='/collections' component={CollectionsScreen} />
-                <ProtectedRoute exact path='/favorites' component={FavoritesScreen} />
-                <ProtectedRoute exact path='/favorites/:id' component={FavMediaScreen} />
+      <MediaState>
+        <UserState>
+          <SearchState>
+            <PublicState>
+              <Header />
+              <main>
+                <Route exact path='/' component={HomeScreen} />
+                <Container style={{ padding: '80px 0 50px' }}>
+                  <Route exact path='/login' component={LogInScreen} />
+                  <Route exact path='/register' component={RegisterScreen} />
+                  <Route exact path='/confirm' component={Confirm} />
+                  <Route exact path='/about' component={AboutScreen} />
+                  <Route exact path='/public' component={PublicColScreen} />
+                  <Route exact path='/public/:id' component={PublicFavScreen} />
+                  <Route exact path='/results' component={ResultsScreen} />
+                  <Route exact path='/media/:id' component={MediaScreen} />
+                  <ProtectedRoute exact path='/collections' component={CollectionsScreen} />
+                  <ProtectedRoute exact path='/favorites' component={FavoritesScreen} />
+                  <ProtectedRoute exact path='/favorites/:id' component={FavMediaScreen} />
+                </Container>
+                {/* <Footer /> */}
+              </main>
+            </PublicState>
 
-              </Container>
-              {/* <Footer /> */}
-            </main>
-          </PublicState>
+          </SearchState>
+        </UserState>
+      </MediaState>
 
-        </SearchState>
-      </UserState>
     </Router>
   );
 }

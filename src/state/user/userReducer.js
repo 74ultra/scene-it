@@ -15,7 +15,7 @@ export default (state, action) => {
             return {
                 ...state,
                 username: action.payload.username,
-                userId: action.payload.attributes.sub,
+                userid: action.payload.attributes.sub,
                 authenticated: true,
                 tempCreds: null
             };
@@ -48,7 +48,7 @@ export default (state, action) => {
             return {
                 ...state,
                 username: null,
-                userId: null,
+                userid: null,
                 favorites: null,
                 collections: null,
                 favInfo: null,

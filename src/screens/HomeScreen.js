@@ -12,6 +12,7 @@ import Footer from '../components/Footer'
 import SearchContext from '../state/search/searchContext'
 import UserContext from '../state/user/userContext'
 import PublicContext from '../state/public/publicContext'
+import MediaContext from '../state/media/mediaContext'
 
 import { homeScreenText } from '../assets/data'
 
@@ -29,7 +30,10 @@ const HomeScreen = () => {
     const { clearAll } = searchContext
 
     const userContext = useContext(UserContext)
-    const { authenticated, getUserFavorites, getUserCollections, userId } = userContext
+    const { authenticated, getUserFavorites, getUserCollections, userid } = userContext
+
+    const mediaContext = useContext(MediaContext)
+    const { fetchUserMedia, fetchUserCollections } = mediaContext
 
     const publicContext = useContext(PublicContext)
     const { clearAllPublic } = publicContext
@@ -39,9 +43,10 @@ const HomeScreen = () => {
     useEffect(() => {
         clearAllPublic()
         if (authenticated) {
-            getUserFavorites(userId)
-            getUserCollections(userId)
-
+            getUserFavorites(userid)
+            getUserCollections(userid)
+            fetchUserMedia(userid)
+            fetchUserCollections(userid)
         }
     }, [authenticated])
 
