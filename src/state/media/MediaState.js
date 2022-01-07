@@ -13,7 +13,8 @@ import {
 const MediaState = props => {
     const initialState = {
         media: null,
-        collections: null
+        collections: null,
+        mediaInfo: null
     }
 
     const history = useHistory();
@@ -58,6 +59,8 @@ const MediaState = props => {
             console.log("There was an error fetching collections: ", err)
         }
     }
+
+
 
     // SPRING - POST NEW USER MEDIA - NOT WORKING (would work as a PUT statement)
     const postMedia = async (media) => {

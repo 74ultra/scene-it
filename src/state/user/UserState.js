@@ -177,7 +177,7 @@ const UserState = props => {
         }
     }
 
-    // CONFIRM NEW USER ACCOUNT
+    // CONFIRM NEW USER SIGNUP
     const confirmNewSignUp = async (username, confirmationCode) => {
         try {
             await Auth.confirmSignUp(username, confirmationCode)
@@ -188,6 +188,7 @@ const UserState = props => {
         }
     }
 
+    // CONFIRM NEW USER ACCOUNT
     const confirmNewAccount = (username, confirmationCode) => {
         Auth.confirmSignUp(username, confirmationCode)
             .then(() => setErrorStatus(null))
