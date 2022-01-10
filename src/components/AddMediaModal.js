@@ -1,22 +1,25 @@
 import React, { useState, useContext } from 'react'
 import { Modal, Button, Form, Container, FloatingLabel, FormGroup } from 'react-bootstrap'
-import UserContext from '../state/user/userContext';
+import UserContext from '../state/user/userContext'
+import MediaContext from '../state/media/mediaContext'
 
-const AddFavModal = ({ movie, toggleFav }) => {
+const AddMediaModal = ({ movie, toggleFav }) => {
 
     const userContext = useContext(UserContext)
+    const mediaContext = useContext(MediaContext)
 
-    const addFavorite = userContext.addFavorite
     const userid = userContext.userid
     const username = userContext.username
-    const collections = userContext.collections
+
+    const collections = mediaContext.collections
+    const postMedia = mediaContext.postMedia
 
     const [show, setShow] = useState(false);
     const [newCol, setNewCol] = useState(!(collections.length > 0))
 
     const handleClose = () => {
         setForm({
-            col: '',
+            collection: '',
             rating: 0,
             comment: ''
         })
@@ -25,7 +28,7 @@ const AddFavModal = ({ movie, toggleFav }) => {
     const handleShow = () => setShow(true);
 
     const [form, setForm] = useState({
-        col: '',
+        collection: '',
         rating: 0,
         comment: ''
     })
@@ -40,15 +43,14 @@ const AddFavModal = ({ movie, toggleFav }) => {
             ...form,
             userid: userid,
             username: username,
-            imdbID: movie.imdbID,
-            poster: movie.Poster,
+            imdbid: movie.imdbID,
             title: movie.Title,
-            type: movie.Type,
+            category: movie.Type,
             year: movie.Year
         }
-        addFavorite(submitData)
+        postMedia(submitData)
         setForm({
-            col: '',
+            collection: '',
             rating: 0,
             comment: ''
         })
@@ -59,7 +61,7 @@ const AddFavModal = ({ movie, toggleFav }) => {
     return (
         <>
             <Button variant="primary" className='btn btn-lg btn-primary' style={{ width: '100%', borderRadius: '3px' }} onClick={handleShow}>
-                Add to collection
+                Add media to collection
             </Button>
 
             <Modal show={show} onHide={handleClose}>
@@ -78,15 +80,15 @@ const AddFavModal = ({ movie, toggleFav }) => {
                         </FormGroup>}
 
                         {!newCol && <FormGroup style={{ padding: '20px 0 0' }}>
-                            <Form.Label><i style={{ color: '#E93284' }} className="fas fa-layer-group"></i> Add to an existing Collection</Form.Label>
+                            <Form.Label><i style={{ color: '#E93284' }} className="fas fa-layer-group"></i> Add media to an existing Collection</Form.Label>
                             <FloatingLabel controlId='floatingSelect' label='Select a collection'>
                                 <Form.Select aria-label="collection select"
                                     type='text'
-                                    name='col'
-                                    value={form.col}
+                                    name='collection'
+                                    value={form.collection}
                                     onChange={handleChange}
                                 >
-                                    <option>{form.col}</option>
+                                    <option>{form.collection}</option>
                                     {collections.length > 0 && collections.map((col, ind) => {
                                         return <option value={col} key={ind}>{col}</option>
                                     })}
@@ -94,12 +96,12 @@ const AddFavModal = ({ movie, toggleFav }) => {
                             </FloatingLabel>
                         </FormGroup>}
                         {newCol && <FormGroup style={{ padding: '20px 0 0' }}>
-                            <Form.Label><i style={{ color: '#E93284' }} className="fas fa-layer-group"></i> Add to a new collection</Form.Label>
+                            <Form.Label><i style={{ color: '#E93284' }} className="fas fa-layer-group"></i>Add to a new collection</Form.Label>
                             <FloatingLabel controlId='floatingSelect' label='Create a new collection'>
                                 <Form.Control
                                     type='text'
-                                    name='col'
-                                    value={form.col}
+                                    name='collection'
+                                    value={form.collection}
                                     onChange={handleChange}
                                 />
                             </FloatingLabel>
@@ -154,4 +156,4 @@ const AddFavModal = ({ movie, toggleFav }) => {
     )
 }
 
-export default AddFavModal
+export default AddMediaModal

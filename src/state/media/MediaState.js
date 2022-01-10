@@ -7,14 +7,16 @@ import axios from 'axios'
 
 import {
     GET_FAVORITES,
-    GET_USER_COLLECTIONS
+    GET_USER_COLLECTIONS,
+    GET_MEDIA_INFO,
+    CLEAR_MEDIA_INFO
 } from '../types'
 
 const MediaState = props => {
     const initialState = {
         media: null,
-        collections: null,
-        mediaInfo: null
+        mediaInfo: null,
+        collections: null
     }
 
     const history = useHistory();
@@ -60,7 +62,21 @@ const MediaState = props => {
         }
     }
 
+    // OMDB - GET INFO FOR INDIVIDUAL MEDIA ITEM
+    const getMediaInfo = id => {
+        clearMediaInfo()
+        const filtered = state.media.filter(med => med.imdbid === id)
 
+        dispatch({
+            type: GET_MEDIA_INFO,
+            payload: filtered[0]
+        })
+    }
+
+    // CLEAR INDIVIDUAL MEDIA INFO
+    const clearMediaInfo = () => {
+        dispatch({ type: CLEAR_MEDIA_INFO })
+    }
 
     // SPRING - POST NEW USER MEDIA - NOT WORKING (would work as a PUT statement)
     const postMedia = async (media) => {
@@ -97,11 +113,14 @@ const MediaState = props => {
             value={{
                 fetchUserMedia,
                 fetchUserCollections,
+                getMediaInfo,
+                clearMediaInfo,
                 postMedia,
                 updateMedia,
                 deleteMedia,
                 media: state.media,
-                collection: state.collections
+                mediaInfo: state.mediaInfo,
+                collections: state.collections
             }}
         >
             {props.children}

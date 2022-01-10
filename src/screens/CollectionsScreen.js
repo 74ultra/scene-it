@@ -16,8 +16,8 @@ const CollectionsScreen = () => {
     const userContext = useContext(UserContext)
     const mediaContext = useContext(MediaContext)
 
-    const { favorites, collections, getUserFavorites, getUserCollections, userid } = userContext
-    const { media, collection, fetchUserMedia, fetchUserCollections } = mediaContext
+    const { favorites, getUserFavorites, getUserCollections, userid } = userContext
+    const { media, collections, fetchUserMedia, fetchUserCollections } = mediaContext
 
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const CollectionsScreen = () => {
                         <h1>Your Collections</h1>
                     </Col>
                 </Row>
-                {!collections || (collections.length < 1 && <NoFavorites />)}
+                {/* {!collections || (collections.length < 1 && <NoFavorites />)}
                 {collections && collections.length > 0 && <>
                     <Row>
                         <Col style={{ margin: '0 0 20px' }}>
@@ -53,13 +53,18 @@ const CollectionsScreen = () => {
                         </Col>
                     </Row>
 
-                </>}
-                {!collection || (collection.length < 1 && <NoFavorites />)}
-                {collection && collection.length > 1 && <>
+                </>} */}
+                {!collections || (collections.length < 1 && <NoFavorites />)}
+                {collections && collections.length > 1 && <>
+                    <Row>
+                        <Col style={{ margin: '0 0 20px' }}>
+                            <Button onClick={() => history.push('/favorites')}>See all favorites</Button>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col>
                             <Accordion>
-                                {collection && collection.map((col, ind) => {
+                                {collections && collections.map((col, ind) => {
                                     return <CollectionMedAcc key={ind} index={ind} media={media} title={col} />
                                 })}
                             </Accordion>

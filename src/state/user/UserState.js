@@ -95,7 +95,7 @@ const UserState = props => {
         })
     }
 
-    // CLEAR INDIVIDUAL FAVIORITE INFO
+    // CLEAR INDIVIDUAL FAVORITE INFO
     const clearFavInfo = () => {
         dispatch({ type: CLEAR_FAV_INFO })
     }

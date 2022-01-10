@@ -35,7 +35,7 @@ const FavoritesScreen = () => {
                     <h1>Your Favorites</h1>
                 </Col>
             </Row>
-            {!favorites && <Loader />}
+            {/* {!favorites && <Loader />}
             {favorites && favorites.length < 1 && <NoFavorites />}
             {favorites && favorites.length > 0 && (
                 <>
@@ -53,7 +53,7 @@ const FavoritesScreen = () => {
                 </>
 
             )
-            }
+            } */}
             {!media && <Loader />}
             {media && media.length < 1 && <NoFavorites />}
             {media && media.length > 0 && (
