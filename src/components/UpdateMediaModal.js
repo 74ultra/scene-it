@@ -16,6 +16,7 @@ const UpdateMediaModal = ({ movie }) => {
     const collections = mediaContext.collections
     const mediaInfo = mediaContext.mediaInfo
     const updateMedia = mediaContext.updateMedia
+    const fetchUserMedia = mediaContext.fetchUserMedia
 
     console.log(mediaInfo)
 
@@ -25,7 +26,7 @@ const UpdateMediaModal = ({ movie }) => {
     const handleClose = () => {
         setForm({
             collection: '',
-            rating: 0,
+            rating: 0.0,
             comment: ''
         })
         setShow(false)
@@ -63,7 +64,9 @@ const UpdateMediaModal = ({ movie }) => {
             year: mediaInfo.year
         }
         updateMedia(submitData)
-        handleClose()
+            .then(() => fetchUserMedia(userid))
+            .then(() => handleClose())
+
         setTimeout(() => {
             history.push('/collections')
         }, 500)
@@ -132,15 +135,15 @@ const UpdateMediaModal = ({ movie }) => {
                                     value={form.rating}
                                     onChange={handleChange}>
                                     <option></option>
-                                    <option value={1}>1 star</option>
+                                    <option value={1.0}>1 star</option>
                                     <option value={1.5}>1.5 star</option>
-                                    <option value={2}>2 stars</option>
+                                    <option value={2.0}>2 stars</option>
                                     <option value={2.5}>2.5 stars</option>
-                                    <option value={3}>3 stars</option>
+                                    <option value={3.0}>3 stars</option>
                                     <option value={3.5}>3.5 stars</option>
-                                    <option value={4}>4 stars</option>
+                                    <option value={4.0}>4 stars</option>
                                     <option value={4.5}>4.5 stars</option>
-                                    <option value={5}>5 stars</option>
+                                    <option value={5.0}>5 stars</option>
                                 </Form.Select>
                             </FloatingLabel>
 

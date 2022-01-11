@@ -31,7 +31,7 @@ const AddMediaModal = ({ movie, toggleFav }) => {
 
     const [form, setForm] = useState({
         collection: '',
-        rating: 0,
+        rating: 0.0,
         comment: ''
     })
 
@@ -53,7 +53,7 @@ const AddMediaModal = ({ movie, toggleFav }) => {
         postMedia(submitData).then(() => fetchUserMedia(userid))
         setForm({
             collection: '',
-            rating: 0,
+            rating: 0.0,
             comment: ''
         })
         toggleFav(true)
@@ -119,15 +119,15 @@ const AddMediaModal = ({ movie, toggleFav }) => {
                                     value={form.rating}
                                     onChange={handleChange}>
                                     <option></option>
-                                    <option value={1}>1 star</option>
+                                    <option value={1.0}>1 star</option>
                                     <option value={1.5}>1.5 star</option>
-                                    <option value={2}>2 stars</option>
+                                    <option value={2.0}>2 stars</option>
                                     <option value={2.5}>2.5 stars</option>
-                                    <option value={3}>3 stars</option>
+                                    <option value={3.0}>3 stars</option>
                                     <option value={3.5}>3.5 stars</option>
-                                    <option value={4}>4 stars</option>
+                                    <option value={4.0}>4 stars</option>
                                     <option value={4.5}>4.5 stars</option>
-                                    <option value={5}>5 stars</option>
+                                    <option value={5.0}>5 stars</option>
                                 </Form.Select>
                             </FloatingLabel>
 

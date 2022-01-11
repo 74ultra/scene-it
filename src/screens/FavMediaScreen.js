@@ -121,7 +121,7 @@ const FavMediaScreen = ({ match }) => {
                         </Col>
                         <Col>
                             <Row style={{ textAlign: 'center' }}>
-                                {favInfo && <h3><Rating value={parseFloat(favInfo.rating.S)} /></h3>}
+                                {mediaInfo && <h3><Rating value={mediaInfo.rating} /></h3>}
                             </Row>
                             <Row>
                                 <Col style={{ textAlign: 'center', paddingBottom: '20px' }}>
