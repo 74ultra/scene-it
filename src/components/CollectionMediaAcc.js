@@ -17,13 +17,17 @@ const CollectionMediaAcc = ({ media, title }) => {
 
 
     useEffect(() => {
-        const colArray = media.filter(med => med.collection === title)
-        setCollection(colArray)
+        if (media && media.length > 0) {
+            const colArray = media.filter(med => med.collection === title)
+            setCollection(colArray)
+        }
         console.log(media, title)
     }, [])
 
     if (collection.length < 1) {
         return <NoFavorites />
+    } else if (!media || media.length < 1) {
+        return <Spinner />
     }
 
     return (

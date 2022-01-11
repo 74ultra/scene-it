@@ -1,19 +1,23 @@
 import React, { useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Modal, Button, Form, Container, FloatingLabel, FormGroup } from 'react-bootstrap'
 import UserContext from '../state/user/userContext'
 import MediaContext from '../state/media/mediaContext'
 
-const AddMediaModal = ({ movie, toggleFav }) => {
+const UpdateMediaModal = ({ movie }) => {
+
+    const history = useHistory()
 
     const userContext = useContext(UserContext)
     const mediaContext = useContext(MediaContext)
 
     const userid = userContext.userid
     const username = userContext.username
-
     const collections = mediaContext.collections
-    const postMedia = mediaContext.postMedia
-    const fetchUserMedia = mediaContext.fetchUserMedia
+    const mediaInfo = mediaContext.mediaInfo
+    const updateMedia = mediaContext.updateMedia
+
+    console.log(mediaInfo)
 
     const [show, setShow] = useState(false);
     const [newCol, setNewCol] = useState(!(collections.length > 0))
@@ -25,14 +29,21 @@ const AddMediaModal = ({ movie, toggleFav }) => {
             comment: ''
         })
         setShow(false)
-
     };
-    const handleShow = () => setShow(true);
+
+    const handleShow = () => {
+        setShow(true)
+        setForm({
+            collection: mediaInfo.collection,
+            rating: mediaInfo.rating,
+            comment: mediaInfo.comment
+        })
+    };
 
     const [form, setForm] = useState({
-        collection: '',
-        rating: 0,
-        comment: ''
+        collection: mediaInfo.collection,
+        rating: mediaInfo.rating,
+        comment: mediaInfo.comment
     })
 
     const handleChange = e => {
@@ -43,32 +54,34 @@ const AddMediaModal = ({ movie, toggleFav }) => {
         e.preventDefault()
         const submitData = {
             ...form,
+            id: mediaInfo.id,
             userid: userid,
             username: username,
-            imdbid: movie.imdbID,
-            title: movie.Title,
-            category: movie.Type,
-            year: movie.Year
+            imdbid: mediaInfo.imdbid,
+            title: mediaInfo.title,
+            category: mediaInfo.category,
+            year: mediaInfo.year
         }
-        postMedia(submitData).then(() => fetchUserMedia(userid))
-        setForm({
-            collection: '',
-            rating: 0,
-            comment: ''
-        })
-        toggleFav(true)
+        updateMedia(submitData)
         handleClose()
-
+        setTimeout(() => {
+            history.push('/collections')
+        }, 500)
 
     }
 
+
     return (
         <>
-            <Button variant="primary" className='btn btn-lg btn-primary' style={{ width: '100%', borderRadius: '3px' }} onClick={handleShow}>
-                Add media to collection
+            <Button variant="secondary" className='btn btn-lg btn-primary' style={{ margin: '0 0 0 5px', width: '100%', borderRadius: '3px' }} onClick={handleShow}>
+                Edit your review
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop='static'
+            >
                 <Modal.Header closeButton>
                     <Modal.Title>{movie.Title}</Modal.Title>
                 </Modal.Header>
@@ -84,7 +97,7 @@ const AddMediaModal = ({ movie, toggleFav }) => {
                         </FormGroup>}
 
                         {!newCol && <FormGroup style={{ padding: '20px 0 0' }}>
-                            <Form.Label><i style={{ color: '#E93284' }} className="fas fa-layer-group"></i> Add media to an existing Collection</Form.Label>
+                            <Form.Label><i style={{ color: '#E93284' }} className="fas fa-layer-group"></i> Add to an existing Collection</Form.Label>
                             <FloatingLabel controlId='floatingSelect' label='Select a collection'>
                                 <Form.Select aria-label="collection select"
                                     type='text'
@@ -92,7 +105,7 @@ const AddMediaModal = ({ movie, toggleFav }) => {
                                     value={form.collection}
                                     onChange={handleChange}
                                 >
-                                    <option>{form.collection}</option>
+                                    <option>{form.col}</option>
                                     {collections.length > 0 && collections.map((col, ind) => {
                                         return <option value={col} key={ind}>{col}</option>
                                     })}
@@ -100,7 +113,7 @@ const AddMediaModal = ({ movie, toggleFav }) => {
                             </FloatingLabel>
                         </FormGroup>}
                         {newCol && <FormGroup style={{ padding: '20px 0 0' }}>
-                            <Form.Label><i style={{ color: '#E93284' }} className="fas fa-layer-group"></i>Add to a new collection</Form.Label>
+                            <Form.Label><i style={{ color: '#E93284' }} className="fas fa-layer-group"></i> Add to a new collection</Form.Label>
                             <FloatingLabel controlId='floatingSelect' label='Create a new collection'>
                                 <Form.Control
                                     type='text'
@@ -152,7 +165,7 @@ const AddMediaModal = ({ movie, toggleFav }) => {
                         Discard
                     </Button>
                     <Button variant="primary" onClick={handleSubmit}>
-                        Add to Collection
+                        Update
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -160,4 +173,4 @@ const AddMediaModal = ({ movie, toggleFav }) => {
     )
 }
 
-export default AddMediaModal
+export default UpdateMediaModal

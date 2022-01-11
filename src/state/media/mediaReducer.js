@@ -2,7 +2,8 @@ import {
     GET_FAVORITES,
     GET_USER_COLLECTIONS,
     GET_MEDIA_INFO,
-    CLEAR_MEDIA_INFO
+    CLEAR_MEDIA_INFO,
+    CLEAR_MEDIA
 } from '../types'
 
 export default (state, action) => {
@@ -27,6 +28,11 @@ export default (state, action) => {
                 ...state,
                 mediaInfo: null
             };
+        case CLEAR_MEDIA:
+            return {
+                ...state,
+                media: null
+            }
         default:
             return state
     }

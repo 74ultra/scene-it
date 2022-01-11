@@ -9,7 +9,8 @@ import {
     GET_FAVORITES,
     GET_USER_COLLECTIONS,
     GET_MEDIA_INFO,
-    CLEAR_MEDIA_INFO
+    CLEAR_MEDIA_INFO,
+    CLEAR_MEDIA
 } from '../types'
 
 const MediaState = props => {
@@ -78,6 +79,10 @@ const MediaState = props => {
         dispatch({ type: CLEAR_MEDIA_INFO })
     }
 
+    const clearMedia = () => {
+        dispatch({ type: CLEAR_MEDIA })
+    }
+
     // SPRING - POST NEW USER MEDIA - NOT WORKING (would work as a PUT statement)
     const postMedia = async (media) => {
 
@@ -115,6 +120,7 @@ const MediaState = props => {
                 fetchUserCollections,
                 getMediaInfo,
                 clearMediaInfo,
+                clearMedia,
                 postMedia,
                 updateMedia,
                 deleteMedia,

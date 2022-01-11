@@ -24,8 +24,8 @@ const MediaScreen = ({ match }) => {
     const mediaContext = useContext(MediaContext)
 
     const { titleInfo, titleSearch, clearTitleInfo } = searchContext
-    const { favorites, authenticated } = userContext
-    const { media } = mediaContext
+    const { authenticated, userid } = userContext
+    const { media, fetchUserMedia } = mediaContext
 
     const [isFav, setIsFav] = useState(false)
 
@@ -57,6 +57,10 @@ const MediaScreen = ({ match }) => {
         }
         const converted = (parseInt(newStg) / 1000).toFixed(0)
         return converted
+    }
+
+    const handleGoCollections = () => {
+        history.push('/collections')
     }
 
     return (
@@ -126,7 +130,7 @@ const MediaScreen = ({ match }) => {
                                     </tr>
                                 </tbody>
                             </Table>
-                            {isFav && <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={() => history.push('/collections')}>Go to Collections</Button>}
+                            {isFav && <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={handleGoCollections}>Go to Collections</Button>}
                             {/* {authenticated && !isFav && <AddFavModal toggleFav={setIsFav} movie={titleInfo} />} */}
                             {authenticated && !isFav && <AddMediaModal toggleFav={setIsFav} movie={titleInfo} />}
                         </Col>
