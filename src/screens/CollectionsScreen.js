@@ -21,8 +21,8 @@ const CollectionsScreen = () => {
 
 
     useEffect(() => {
-        getUserFavorites(userid)
-        getUserCollections(userid)
+        // getUserFavorites(userid)
+        // getUserCollections(userid)
         fetchUserMedia(userid)
         fetchUserCollections(userid)
 
@@ -36,26 +36,8 @@ const CollectionsScreen = () => {
                         <h1>Your Collections</h1>
                     </Col>
                 </Row>
-                {/* {!collections || (collections.length < 1 && <NoFavorites />)}
-                {collections && collections.length > 0 && <>
-                    <Row>
-                        <Col style={{ margin: '0 0 20px' }}>
-                            <Button onClick={() => history.push('/favorites')}>See all favorites</Button>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Accordion>
-                                {collections && collections.map((col, ind) => {
-                                    return <CollectionAcc key={ind} index={ind} favs={favorites} title={col} />
-                                })}
-                            </Accordion>
-                        </Col>
-                    </Row>
-
-                </>} */}
                 {!collections || (collections.length < 1 && <NoFavorites />)}
-                {collections && collections.length > 1 && <>
+                {collections && collections.length > 0 && <>
                     <Row>
                         <Col style={{ margin: '0 0 20px' }}>
                             <Button onClick={() => history.push('/favorites')}>See all favorites</Button>
@@ -71,8 +53,6 @@ const CollectionsScreen = () => {
                         </Col>
                     </Row>
                 </>}
-
-
             </Container>
             <Footer />
         </>

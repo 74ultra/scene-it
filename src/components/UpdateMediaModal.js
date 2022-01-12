@@ -17,6 +17,7 @@ const UpdateMediaModal = ({ movie }) => {
     const mediaInfo = mediaContext.mediaInfo
     const updateMedia = mediaContext.updateMedia
     const fetchUserMedia = mediaContext.fetchUserMedia
+    const fetchUserCollections = mediaContext.fetchUserCollections
 
     console.log(mediaInfo)
 
@@ -65,7 +66,10 @@ const UpdateMediaModal = ({ movie }) => {
         }
         updateMedia(submitData)
             .then(() => fetchUserMedia(userid))
-            .then(() => handleClose())
+            .then(() => {
+                fetchUserCollections(userid)
+                handleClose()
+            })
 
         setTimeout(() => {
             history.push('/collections')

@@ -1,6 +1,5 @@
 import React, { useEffect, useContext, useRef } from 'react'
 import RemoveFavModal from '../components/RemoveFavModal'
-import UpdateFavModal from '../components/UpdateFavModal'
 import UpdateMediaModal from '../components/UpdateMediaModal'
 import { Row, Col, Image, Table, Container, Button, Accordion } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
@@ -33,7 +32,7 @@ const FavMediaScreen = ({ match }) => {
 
 
     useEffect(() => {
-        getFavInfo(params)
+        // getFavInfo(params)
         getMediaInfo(params)
         titleSearch(params)
     }, [])
@@ -46,12 +45,14 @@ const FavMediaScreen = ({ match }) => {
     }
 
 
+
+
     return (
         <>
             <Container style={{ padding: '15px 0' }}>
                 <Button onClick={handleBack} size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to Collections</Button>
             </Container>
-            {Object.keys(titleInfo) < 1 && favInfo
+            {Object.keys(titleInfo) > 1 && mediaInfo
                 ? <Loader />
                 : <Container style={{ padding: '15px 0 100px' }}>
 
@@ -112,7 +113,7 @@ const FavMediaScreen = ({ match }) => {
                                 </tbody>
                             </Table>
                             <div style={{ display: 'flex' }}>
-                                {mediaInfo && mediaInfo.collection && <RemoveFavModal colName={mediaInfo.collection} movie={titleInfo} />}
+                                {mediaInfo && mediaInfo.collection && <RemoveFavModal colName={mediaInfo.collection} id={mediaInfo.id} movie={titleInfo} />}
                                 {/* {mediaInfo && <UpdateFavModal movie={titleInfo} />} */}
                                 {mediaInfo && <UpdateMediaModal movie={titleInfo} />}
 

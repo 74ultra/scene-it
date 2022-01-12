@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Rating from './Rating'
-import { Button, Table, Spinner } from 'react-bootstrap'
+import { Button, Table } from 'react-bootstrap'
 import NoFavorites from './NoFavorites'
+import Loader from './Loader'
 
 const CollectionMediaAcc = ({ media, title }) => {
 
@@ -27,7 +28,7 @@ const CollectionMediaAcc = ({ media, title }) => {
     if (collection.length < 1) {
         return <NoFavorites />
     } else if (!media || media.length < 1) {
-        return <Spinner />
+        return <Loader />
     }
 
     return (

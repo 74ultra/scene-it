@@ -17,13 +17,12 @@ const FavoritesScreen = () => {
     const mediaContext = useContext(MediaContext)
 
     const { userid, getUserFavorites, favorites } = userContext
-    const { fetchUserMedia, media } = mediaContext
+    const { fetchUserMedia, media, fetchUserCollections, clearMediaInfo } = mediaContext
 
     useEffect(() => {
-
-        getUserFavorites(userid)
+        fetchUserCollections(userid)
         fetchUserMedia(userid)
-
+        clearMediaInfo()
     }, [])
 
 
@@ -35,25 +34,6 @@ const FavoritesScreen = () => {
                     <h1>Your Favorites</h1>
                 </Col>
             </Row>
-            {/* {!favorites && <Loader />}
-            {favorites && favorites.length < 1 && <NoFavorites />}
-            {favorites && favorites.length > 0 && (
-                <>
-                    <Row>
-                        <Col style={{ margin: '0 0 20px' }}>
-                            <Button onClick={() => history.push('/collections')}>See collections</Button>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <FavoritesTable favorites={favorites} />
-                        </Col>
-                    </Row>
-
-                </>
-
-            )
-            } */}
             {!media && <Loader />}
             {media && media.length < 1 && <NoFavorites />}
             {media && media.length > 0 && (
