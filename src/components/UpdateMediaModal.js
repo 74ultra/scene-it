@@ -65,9 +65,9 @@ const UpdateMediaModal = ({ movie }) => {
             year: mediaInfo.year
         }
         updateMedia(submitData)
-            .then(() => fetchUserMedia(userid))
+            .then(() => fetchUserMedia(userid, username))
             .then(() => {
-                fetchUserCollections(userid)
+                fetchUserCollections(userid, username)
                 handleClose()
             })
 

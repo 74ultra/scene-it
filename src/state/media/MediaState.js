@@ -4,6 +4,7 @@ import MediaContext from './mediaContext'
 import mediaReducer from './mediaReducer'
 import { Auth } from 'aws-amplify'
 import axios from 'axios'
+import { getIdToken } from '../../utils/getToken'
 
 import {
     GET_FAVORITES,
@@ -26,9 +27,17 @@ const MediaState = props => {
 
 
     // SPRING - GET USER MEDIA BY ID - TESTED ***
-    const fetchUserMedia = async (userid) => {
+    const fetchUserMedia = async (userid, username) => {
+
+        const token = getIdToken(username)
+        const headers = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Access-Control-Allow-Origin': '*'
+            }
+        }
         try {
-            const res = await axios.get(`https://scene-it.ee-cognizantacademy.com/api/v1/media/${userid}`)
+            const res = await axios.get(`https://scene-it.ee-cognizantacademy.com/api/v1/media/${userid}`, headers)
             console.log("User media", res.data)
             dispatch({
                 type: GET_FAVORITES,
@@ -50,9 +59,14 @@ const MediaState = props => {
     }
 
     // SPRING - GET USER'S COLLECTION NAMES BY USER ID - TESTED ***
-    const fetchUserCollections = async (userid) => {
+    const fetchUserCollections = async (userid, username) => {
+        const token = getIdToken(username)
+        const headers = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
+
         try {
-            const res = await axios.get(`https://scene-it.ee-cognizantacademy.com/api/v1/media/collections/${userid}`)
+            const res = await axios.get(`https://scene-it.ee-cognizantacademy.com/api/v1/media/collections/${userid}`, headers)
             console.log("Collections", res.data)
             dispatch({
                 type: GET_USER_COLLECTIONS,
@@ -84,30 +98,39 @@ const MediaState = props => {
     }
 
     // SPRING - POST NEW USER MEDIA - NOT WORKING (would work as a PUT statement)
-    const postMedia = async (media) => {
-
-        console.log(media)
+    const postMedia = async (media, username) => {
+        const token = getIdToken(username)
+        const headers = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
         try {
-            await axios.put(`https://scene-it.ee-cognizantacademy.com/api/v1/media`, media)
+            await axios.put(`https://scene-it.ee-cognizantacademy.com/api/v1/media`, media, headers)
         } catch (err) {
             console.log('Error adding media: ', err)
         }
     }
 
     // SPRING - PUT - UPDATE MEDIA - TESTED ***
-    const updateMedia = async (media) => {
-
+    const updateMedia = async (media, username) => {
+        const token = getIdToken(username)
+        const headers = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
         try {
-            await axios.put(`https://scene-it.ee-cognizantacademy.com/api/v1/media`, media)
+            await axios.put(`https://scene-it.ee-cognizantacademy.com/api/v1/media`, media, headers)
         } catch (err) {
             console.log("There was an error updating media: ", err)
         }
     }
 
     // SPRING - DELETE MEDIA - TESTED ***
-    const deleteMedia = async (id) => {
+    const deleteMedia = async (id, username) => {
+        const token = getIdToken(username)
+        const headers = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
         try {
-            await axios.delete(`https://scene-it.ee-cognizantacademy.com/api/v1/media/${id}`)
+            await axios.delete(`https://scene-it.ee-cognizantacademy.com/api/v1/media/${id}`, headers)
         } catch (err) {
             console.log("There was an error deleting media: ", err)
         }

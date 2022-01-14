@@ -5,7 +5,6 @@ import MediaContext from '../state/media/mediaContext'
 import FavoritesTable from '../components/FavoritesTable'
 import FavoritesMediaTable from '../components/FavoritesMediaTable'
 import NoFavorites from '../components/NoFavorites'
-import Loader from '../components/Loader'
 import Footer from '../components/Footer'
 import { Container, Button, Col, Row } from 'react-bootstrap'
 
@@ -16,12 +15,12 @@ const FavoritesScreen = () => {
     const userContext = useContext(UserContext)
     const mediaContext = useContext(MediaContext)
 
-    const { userid, getUserFavorites, favorites } = userContext
+    const { userid, username } = userContext
     const { fetchUserMedia, media, fetchUserCollections, clearMediaInfo } = mediaContext
 
     useEffect(() => {
-        fetchUserCollections(userid)
-        fetchUserMedia(userid)
+        fetchUserCollections(userid, username)
+        fetchUserMedia(userid, username)
         clearMediaInfo()
     }, [])
 
@@ -34,8 +33,7 @@ const FavoritesScreen = () => {
                     <h1>Your Favorites</h1>
                 </Col>
             </Row>
-            {!media && <Loader />}
-            {media && media.length < 1 && <NoFavorites />}
+            {(!media || media.length < 1) && <NoFavorites />}
             {media && media.length > 0 && (
                 <>
                     <Row>

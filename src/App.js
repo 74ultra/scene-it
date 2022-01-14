@@ -10,8 +10,10 @@ import LogInScreen from './screens/LogInScreen';
 import CollectionsScreen from './screens/CollectionsScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import FavMediaScreen from './screens/FavMediaScreen';
+import PubMediaScreen from './screens/publicCollections/PubMediaScreen'
 import RegisterScreen from './screens/RegisterScreen';
 import PublicColScreen from './screens/PublicColScreen';
+import PubCollContainer from './screens/publicCollections/PubCollContainer';
 import AboutScreen from './screens/AboutScreen';
 import Confirm from './screens/Confirm';
 
@@ -43,6 +45,8 @@ function App() {
                   <Route exact path='/about' component={AboutScreen} />
                   <Route exact path='/public' component={PublicColScreen} />
                   <Route exact path='/public/:id' component={PublicFavScreen} />
+                  <Route exact path='/public/collections/:id' component={PubCollContainer} />
+                  <Route exact path='/publicItem' component={PubMediaScreen} />
                   <Route exact path='/results' component={ResultsScreen} />
                   <Route exact path='/media/:id' component={MediaScreen} />
                   <ProtectedRoute exact path='/collections' component={CollectionsScreen} />

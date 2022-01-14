@@ -16,7 +16,13 @@ import {
     GET_SELECTED_INFO,
     CHANGE_PUBLIC_VIEW,
     CLEAR_SELECTED_INFO,
-    CLEAR_SELECTED_FAV
+    CLEAR_SELECTED_FAV,
+    FETCH_USERS_LIST,
+    FETCH_PUBLIC_MEDIA,
+    FETCH_PUBLIC_COLLECTIONS,
+    CLEAR_PUBLIC_INFO,
+    SET_PUBLIC_USER_ITEM
+
 } from '../types'
 
 
@@ -28,7 +34,11 @@ const PublicState = props => {
         selectedFav: null,
         userCollections: null,
         selectedInfo: null,
-        publicView: '1'
+        publicView: '1',
+        allUsersList: null,
+        selectedUserMedia: null,
+        selectedUserCols: null,
+        publicUserItem: null,
     }
 
     const [state, dispatch] = useReducer(PublicReducer, initialState)
@@ -46,6 +56,57 @@ const PublicState = props => {
             console.log('Error retrieving users')
         }
     }
+
+    // SPRING - GET LIST OF USERS, USERIDS, AND COUNT OF REVIEWED MOVIES
+    const fetchUsersList = async () => {
+        try {
+            const res = await axios.get(`https://scene-it.ee-cognizantacademy.com/api/v1/media/public`)
+            console.log(res.data)
+            dispatch({
+                type: FETCH_USERS_LIST,
+                payload: res.data
+            })
+        } catch (err) {
+            console.log("There was an error fetching the users' list: ", err)
+        }
+    }
+    // SPRING - GET PUBLIC USER MEDIA BY ID
+    const fetchPublicUserMedia = async (userid) => {
+        try {
+            const res = await axios.get(`https://scene-it.ee-cognizantacademy.com/api/v1/media/${userid}`)
+            console.log("Public user media", res.data)
+            dispatch({
+                type: FETCH_PUBLIC_MEDIA,
+                payload: res.data
+            })
+        } catch (err) {
+            console.log("There was a problem retrieving favorite: ", err)
+        }
+    }
+
+    // SPRING - GET PUBLIC USER'S COLLECTION NAMES BY USER ID
+    const fetchPublicUserCols = async (userid) => {
+
+        try {
+            const res = await axios.get(`https://scene-it.ee-cognizantacademy.com/api/v1/media/collections/${userid}`)
+            console.log("Public collections", res.data)
+            dispatch({
+                type: FETCH_PUBLIC_COLLECTIONS,
+                payload: res.data
+            })
+        } catch (err) {
+            console.log("There was an error fetching collections: ", err)
+        }
+    }
+
+    // SPRING - SELECT A PUBLIC USER'S MEDIA ITEM
+    const setPublicUserItem = (item) => {
+        dispatch({
+            type: SET_PUBLIC_USER_ITEM,
+            payload: item
+        })
+    }
+
 
     // GET SELECTED USER COLLECTIONS
     const getSelectedCollections = async (userId) => {
@@ -144,6 +205,18 @@ const PublicState = props => {
         })
     }
 
+    // SPRING - CLEAR SELECTED USER INFO
+    const clearPublicInfo = async () => {
+        try {
+            dispatch({
+                type: CLEAR_PUBLIC_INFO
+            })
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
     return (
         <PublicContext.Provider
             value={{
@@ -154,6 +227,15 @@ const PublicState = props => {
                 selectedFav: state.selectedFav,
                 selectedInfo: state.selectedInfo,
                 publicView: state.publicView,
+                allUsersList: state.allUsersList,
+                selectedUserMedia: state.selectedUserMedia,
+                selectedUserCols: state.selectedUserCols,
+                publicUserItem: state.publicUserItem,
+                setPublicUserItem,
+                fetchUsersList,
+                fetchPublicUserMedia,
+                fetchPublicUserCols,
+                clearPublicInfo,
                 getUsers,
                 getSelectedCollections,
                 getPublicFavs,

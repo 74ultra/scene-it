@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import PublicUsers from '../components/PublicUsers'
+import PublicUsersList from '../components/PublicUsersList'
 import PublicFavsTable from '../components/PublicFavsTable'
 import { Container, Row, Col } from 'react-bootstrap'
 import PublicContext from '../state/public/publicContext'
@@ -8,10 +9,11 @@ const PublicColScreen = () => {
 
     const publicContext = useContext(PublicContext)
 
-    const { getUsers, publicView, changePublicView } = publicContext
+    const { getUsers, changePublicView, fetchUsersList } = publicContext
 
     useEffect(() => {
         getUsers()
+        fetchUsersList()
     }, [])
 
     return (
@@ -21,8 +23,8 @@ const PublicColScreen = () => {
                     <h1>Discover</h1>
                 </Col>
             </Row>
-            {publicView === 1 && <PublicUsers setView={changePublicView} />}
-            {publicView === 2 && <PublicFavsTable setView={changePublicView} />}
+            <PublicUsersList setView={changePublicView} />
+
 
         </Container>
     )

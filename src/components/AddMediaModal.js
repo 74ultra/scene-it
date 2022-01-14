@@ -14,9 +14,10 @@ const AddMediaModal = ({ movie, toggleFav }) => {
     const collections = mediaContext.collections
     const postMedia = mediaContext.postMedia
     const fetchUserMedia = mediaContext.fetchUserMedia
+    const fetchUserCollections = mediaContext.fetchUserCollections
 
     const [show, setShow] = useState(false);
-    const [newCol, setNewCol] = useState(!(collections.length > 0))
+    const [newCol, setNewCol] = useState(false)
 
     const handleClose = () => {
         setForm({
@@ -50,7 +51,9 @@ const AddMediaModal = ({ movie, toggleFav }) => {
             category: movie.Type,
             year: movie.Year
         }
-        postMedia(submitData).then(() => fetchUserMedia(userid))
+        postMedia(submitData, username)
+            .then(() => fetchUserMedia(userid, username))
+            .then(() => fetchUserCollections(userid, username))
         setForm({
             collection: '',
             rating: 0.0,
@@ -74,14 +77,14 @@ const AddMediaModal = ({ movie, toggleFav }) => {
                 </Modal.Header>
                 <Container>
                     <Form>
-                        {collections && collections.length > 0 && <FormGroup style={{ padding: '20px 0 0' }}>
+                        <FormGroup style={{ padding: '20px 0 0' }}>
                             <Form.Check
                                 type='switch'
                                 label='Create new collection'
                                 id='1'
                                 onChange={() => setNewCol(!newCol)}
                             />
-                        </FormGroup>}
+                        </FormGroup>
 
                         {!newCol && <FormGroup style={{ padding: '20px 0 0' }}>
                             <Form.Label><i style={{ color: '#E93284' }} className="fas fa-layer-group"></i> Add media to an existing Collection</Form.Label>
@@ -91,9 +94,10 @@ const AddMediaModal = ({ movie, toggleFav }) => {
                                     name='collection'
                                     value={form.collection}
                                     onChange={handleChange}
+                                // disabled={!collections}
                                 >
                                     <option>{form.collection}</option>
-                                    {collections.length > 0 && collections.map((col, ind) => {
+                                    {collections && collections.length > 0 && collections.map((col, ind) => {
                                         return <option value={col} key={ind}>{col}</option>
                                     })}
                                 </Form.Select>

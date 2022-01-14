@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react'
-import CollectionAcc from '../components/CollectionAcc'
 import CollectionMedAcc from '../components/CollectionMedAcc'
 import { useHistory } from 'react-router-dom'
 import { Container, Row, Col, Button, Accordion } from 'react-bootstrap'
@@ -16,16 +15,15 @@ const CollectionsScreen = () => {
     const userContext = useContext(UserContext)
     const mediaContext = useContext(MediaContext)
 
-    const { favorites, getUserFavorites, getUserCollections, userid } = userContext
+    const { userid, username } = userContext
     const { media, collections, fetchUserMedia, fetchUserCollections } = mediaContext
 
-
+    console.log(collections === null)
     useEffect(() => {
         // getUserFavorites(userid)
         // getUserCollections(userid)
-        fetchUserMedia(userid)
-        fetchUserCollections(userid)
-
+        fetchUserMedia(userid, username)
+        fetchUserCollections(userid, username)
     }, [])
 
     return (
@@ -36,7 +34,7 @@ const CollectionsScreen = () => {
                         <h1>Your Collections</h1>
                     </Col>
                 </Row>
-                {!collections || (collections.length < 1 && <NoFavorites />)}
+                {(!collections || collections.length < 1) && <NoFavorites />}
                 {collections && collections.length > 0 && <>
                     <Row>
                         <Col style={{ margin: '0 0 20px' }}>

@@ -1,31 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import Rating from './Rating'
+import Rating from '../../components/Rating'
 import { Button, Table } from 'react-bootstrap'
-import NoFavorites from './NoFavorites'
-import Loader from './Loader'
+import Loader from '../../components/Loader'
 
-const CollectionMediaAcc = ({ media, title }) => {
+import PublicContext from '../../state/public/publicContext'
+
+const PubAccordianItem = ({ media, title }) => {
+
+    const publicContext = useContext(PublicContext)
+    const { setPublicUserItem } = publicContext
 
     const [collection, setCollection] = useState([])
 
     const history = useHistory();
 
-    const searchMedia = (id) => {
-        history.push(`/favorites/${id}`)
+    const searchItemDetails = (item) => {
+        setPublicUserItem(item)
+        history.push('/publicItem')
     }
 
     useEffect(() => {
-        if (media && media.length > 0) {
-            const colArray = media.filter(med => med.collection === title)
-            setCollection(colArray)
-        }
-        console.log(media, title)
+        const colArray = media.filter(med => med.collection === title)
+        setCollection(colArray)
+
     }, [])
 
-    if (collection.length < 1) {
-        return <NoFavorites />
-    } else if (!media || media.length < 1) {
+    if (!collection) {
         return <Loader />
     }
 
@@ -40,8 +41,9 @@ const CollectionMediaAcc = ({ media, title }) => {
             </thead>
             <tbody>
                 {collection.map(item => {
+                    console.log('Item :', item)
                     return (
-                        <tr key={item.imdbid} onClick={() => searchMedia(item.imdbid)}>
+                        <tr key={item.imdbid} onClick={() => searchItemDetails(item)}>
                             <td style={{ width: '30%', fontSize: '1.1rem' }}>{item.title}</td>
                             <td style={{ width: '20%', textAlign: 'center', fontSize: '1.1rem' }}>{item.year}</td>
                             <td style={{ width: '10%', textAlign: 'center', fontSize: '1.1rem' }}>{item.category}</td>
@@ -55,4 +57,4 @@ const CollectionMediaAcc = ({ media, title }) => {
     )
 }
 
-export default CollectionMediaAcc
+export default PubAccordianItem

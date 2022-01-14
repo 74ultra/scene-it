@@ -9,7 +9,12 @@ import {
     GET_SELECTED_INFO,
     CHANGE_PUBLIC_VIEW,
     CLEAR_SELECTED_INFO,
-    CLEAR_SELECTED_FAV
+    CLEAR_SELECTED_FAV,
+    FETCH_USERS_LIST,
+    FETCH_PUBLIC_MEDIA,
+    FETCH_PUBLIC_COLLECTIONS,
+    CLEAR_PUBLIC_INFO,
+    SET_PUBLIC_USER_ITEM
 } from '../types'
 
 export default (state, action) => {
@@ -19,10 +24,30 @@ export default (state, action) => {
                 ...state,
                 userList: action.payload
             }
+        case FETCH_USERS_LIST:
+            return {
+                ...state,
+                allUsersList: action.payload
+            }
+        case FETCH_PUBLIC_MEDIA:
+            return {
+                ...state,
+                selectedUserMedia: action.payload
+            }
+        case FETCH_PUBLIC_COLLECTIONS:
+            return {
+                ...state,
+                selectedUserCols: action.payload
+            }
         case GET_PUBLIC_COLS:
             return {
                 ...state,
                 userCollections: action.payload
+            }
+        case SET_PUBLIC_USER_ITEM:
+            return {
+                ...state,
+                publicUserItem: action.payload
             }
         case GET_PUBLIC_FAVS:
             return {
@@ -51,6 +76,13 @@ export default (state, action) => {
                 userCollections: null,
                 selectedUserFavs: null,
                 selectedInfo: null
+            }
+        case CLEAR_PUBLIC_INFO:
+            return {
+                ...state,
+                selectedUserMedia: null,
+                selectedUserCols: null,
+                selectedUserName: null
             }
         case CLEAR_ALL_PUBLIC:
             return {

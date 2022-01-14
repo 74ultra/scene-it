@@ -12,6 +12,7 @@ const RemoveFavModal = ({ movie, id }) => {
     const mediaContext = useContext(MediaContext)
 
     const userid = userContext.userid
+    const username = userContext.username
     const deleteMedia = mediaContext.deleteMedia
     const fetchUserMedia = mediaContext.fetchUserMedia
     const fetchUserCollections = mediaContext.fetchUserCollections
@@ -23,9 +24,9 @@ const RemoveFavModal = ({ movie, id }) => {
     const handleClose = () => setShow(false)
 
     const handleConfirm = () => {
-        deleteMedia(id)
-            .then(() => fetchUserMedia(userid))
-            .then(() => fetchUserCollections(userid))
+        deleteMedia(id, username)
+            .then(() => fetchUserMedia(userid, username))
+            .then(() => fetchUserCollections(userid, username))
             .then(() => {
                 clearMediaInfo()
                 handleClose()

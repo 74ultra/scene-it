@@ -24,7 +24,7 @@ const FavMediaScreen = ({ match }) => {
     const searchContext = useContext(SearchContext)
     const mediaContext = useContext(MediaContext)
 
-    const { getFavInfo, favInfo, clearFavInfo } = userContext
+    const { clearFavInfo } = userContext
     const { titleInfo, titleSearch, clearTitleInfo } = searchContext
     const { getMediaInfo, mediaInfo, clearMediaInfo } = mediaContext
 
@@ -38,7 +38,7 @@ const FavMediaScreen = ({ match }) => {
     }, [])
 
     const handleBack = () => {
-        clearFavInfo()
+        // clearFavInfo()
         clearMediaInfo()
         clearTitleInfo()
         history.push('/collections')
