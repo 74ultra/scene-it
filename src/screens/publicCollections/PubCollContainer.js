@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react'
-import { Container, Row, Col, Button, Accordion } from 'react-bootstrap'
+import { Container, Row, Col, Accordion } from 'react-bootstrap'
 import PubCollHeader from './PubCollHeader'
 import PubColAccordion from './PubColAccordion'
 import Loader from '../../components/Loader'

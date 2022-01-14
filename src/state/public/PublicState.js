@@ -214,7 +214,16 @@ const PublicState = props => {
         } catch (err) {
             console.log(err)
         }
+    }
 
+    // PUBLIC ITEM SEARCH - OMDB
+    const searchPublicItem = async (imbdid) => {
+        try {
+            const res = await axios.get(`https://www.omdbapi.com/?apikey=984fabcd&i=${imbdid}&plot=full`)
+            return res.data
+        } catch (err) {
+            console.log('There was an error searching for this item: ', err)
+        }
     }
 
     return (
@@ -236,6 +245,7 @@ const PublicState = props => {
                 fetchPublicUserMedia,
                 fetchPublicUserCols,
                 clearPublicInfo,
+                searchPublicItem,
                 getUsers,
                 getSelectedCollections,
                 getPublicFavs,

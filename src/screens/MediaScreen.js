@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext, useRef } from 'react'
-import AddFavModal from '../components/AddFavModal'
 import AddMediaModal from '../components/AddMediaModal'
 import { Row, Col, Image, Table, Container, Button, Accordion } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
@@ -24,8 +23,8 @@ const MediaScreen = ({ match }) => {
     const mediaContext = useContext(MediaContext)
 
     const { titleInfo, titleSearch, clearTitleInfo } = searchContext
-    const { authenticated, userid } = userContext
-    const { media, fetchUserMedia } = mediaContext
+    const { authenticated } = userContext
+    const { media } = mediaContext
 
     const [isFav, setIsFav] = useState(false)
 
@@ -67,7 +66,7 @@ const MediaScreen = ({ match }) => {
         <>
             <Container style={{ padding: '20px 0' }}>
                 <Link to='/results'>
-                    <Button onClick={clearTitleInfo} size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to search results</Button>
+                    <Button onClick={clearTitleInfo} size='sm' variant='primary' style={{ borderRadius: '3px' }}>&#x27F5; Back to search results</Button>
                 </Link>
             </Container>
 
@@ -131,7 +130,6 @@ const MediaScreen = ({ match }) => {
                                 </tbody>
                             </Table>
                             {isFav && <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={handleGoCollections}>Go to Collections</Button>}
-                            {/* {authenticated && !isFav && <AddFavModal toggleFav={setIsFav} movie={titleInfo} />} */}
                             {authenticated && !isFav && <AddMediaModal toggleFav={setIsFav} movie={titleInfo} />}
                         </Col>
                         <Col>

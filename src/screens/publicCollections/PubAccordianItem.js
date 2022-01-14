@@ -41,7 +41,6 @@ const PubAccordianItem = ({ media, title }) => {
             </thead>
             <tbody>
                 {collection.map(item => {
-                    console.log('Item :', item)
                     return (
                         <tr key={item.imdbid} onClick={() => searchItemDetails(item)}>
                             <td style={{ width: '30%', fontSize: '1.1rem' }}>{item.title}</td>

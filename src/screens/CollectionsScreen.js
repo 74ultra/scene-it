@@ -20,8 +20,6 @@ const CollectionsScreen = () => {
 
     console.log(collections === null)
     useEffect(() => {
-        // getUserFavorites(userid)
-        // getUserCollections(userid)
         fetchUserMedia(userid, username)
         fetchUserCollections(userid, username)
     }, [])

@@ -7,7 +7,6 @@ import Loader from '../components/Loader'
 import Rating from '../components/Rating'
 import Footer from '../components/Footer'
 import SearchContext from '../state/search/searchContext'
-import UserContext from '../state/user/userContext'
 import MediaContext from '../state/media/mediaContext'
 
 const FavMediaScreen = ({ match }) => {
@@ -20,11 +19,9 @@ const FavMediaScreen = ({ match }) => {
         rf.current.scrollIntoView({ behavior: 'smooth' })
     }
 
-    const userContext = useContext(UserContext)
     const searchContext = useContext(SearchContext)
     const mediaContext = useContext(MediaContext)
 
-    const { clearFavInfo } = userContext
     const { titleInfo, titleSearch, clearTitleInfo } = searchContext
     const { getMediaInfo, mediaInfo, clearMediaInfo } = mediaContext
 
@@ -32,13 +29,11 @@ const FavMediaScreen = ({ match }) => {
 
 
     useEffect(() => {
-        // getFavInfo(params)
         getMediaInfo(params)
         titleSearch(params)
     }, [])
 
     const handleBack = () => {
-        // clearFavInfo()
         clearMediaInfo()
         clearTitleInfo()
         history.push('/collections')
@@ -114,7 +109,6 @@ const FavMediaScreen = ({ match }) => {
                             </Table>
                             <div style={{ display: 'flex' }}>
                                 {mediaInfo && mediaInfo.collection && <RemoveFavModal colName={mediaInfo.collection} id={mediaInfo.id} movie={titleInfo} />}
-                                {/* {mediaInfo && <UpdateFavModal movie={titleInfo} />} */}
                                 {mediaInfo && <UpdateMediaModal movie={titleInfo} />}
 
                             </div>
@@ -145,8 +139,6 @@ const FavMediaScreen = ({ match }) => {
                                             </Accordion.Body>
                                         </Accordion.Item>
                                     </Accordion>
-
-
                                 </Col>
                             </Row>
                         </Col>
