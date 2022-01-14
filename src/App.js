@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/Header'
-// import Footer from './components/Footer'
 import { Container } from 'react-bootstrap'
 import HomeScreen from './screens/HomeScreen';
 import ResultsScreen from './screens/ResultsScreen'
@@ -23,7 +22,6 @@ import PublicState from './state/public/PublicState';
 import MediaState from './state/media/MediaState';
 
 import { ProtectedRoute } from './utils/ProtectedRoute';
-import PublicFavScreen from './screens/PublicFavScreen';
 
 
 
@@ -44,7 +42,6 @@ function App() {
                   <Route exact path='/confirm' component={Confirm} />
                   <Route exact path='/about' component={AboutScreen} />
                   <Route exact path='/public' component={PublicColScreen} />
-                  <Route exact path='/public/:id' component={PublicFavScreen} />
                   <Route exact path='/public/collections/:id' component={PubCollContainer} />
                   <Route exact path='/publicItem' component={PubMediaScreen} />
                   <Route exact path='/results' component={ResultsScreen} />
@@ -53,10 +50,8 @@ function App() {
                   <ProtectedRoute exact path='/favorites' component={FavoritesScreen} />
                   <ProtectedRoute exact path='/favorites/:id' component={FavMediaScreen} />
                 </Container>
-                {/* <Footer /> */}
               </main>
             </PublicState>
-
           </SearchState>
         </UserState>
       </MediaState>

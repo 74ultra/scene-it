@@ -8,10 +8,9 @@ const PublicColScreen = () => {
 
     const publicContext = useContext(PublicContext)
 
-    const { getUsers, changePublicView, fetchUsersList } = publicContext
+    const { changePublicView, fetchUsersList } = publicContext
 
     useEffect(() => {
-        getUsers()
         fetchUsersList()
     }, [])
 

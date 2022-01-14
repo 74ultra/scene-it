@@ -1,7 +1,4 @@
 import {
-    GET_USERS_LIST,
-    GET_PUBLIC_FAVS,
-    GET_PUBLIC_COLS,
     UPDATE_SELECTED_USER,
     CLEAR_USER_INFO,
     GET_SELECTED_FAVORITE,
@@ -19,11 +16,6 @@ import {
 
 export default (state, action) => {
     switch (action.type) {
-        case GET_USERS_LIST:
-            return {
-                ...state,
-                userList: action.payload
-            }
         case FETCH_USERS_LIST:
             return {
                 ...state,
@@ -39,20 +31,10 @@ export default (state, action) => {
                 ...state,
                 selectedUserCols: action.payload
             }
-        case GET_PUBLIC_COLS:
-            return {
-                ...state,
-                userCollections: action.payload
-            }
         case SET_PUBLIC_USER_ITEM:
             return {
                 ...state,
                 publicUserItem: action.payload
-            }
-        case GET_PUBLIC_FAVS:
-            return {
-                ...state,
-                selectedUserFavs: action.payload
             }
         case GET_SELECTED_FAVORITE:
             return {

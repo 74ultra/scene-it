@@ -6,9 +6,6 @@ import axios from 'axios'
 import { userListCleaner, colCleaner, selectedFavCleaner } from '../../utils/helpers'
 
 import {
-    GET_USERS_LIST,
-    GET_PUBLIC_FAVS,
-    GET_PUBLIC_COLS,
     UPDATE_SELECTED_USER,
     CLEAR_USER_INFO,
     GET_SELECTED_FAVORITE,
@@ -28,11 +25,8 @@ import {
 
 const PublicState = props => {
     const initialState = {
-        userList: null,
         selectedUser: null,
-        selectedUserFavs: null,
         selectedFav: null,
-        userCollections: null,
         selectedInfo: null,
         publicView: '1',
         allUsersList: null,
@@ -42,20 +36,6 @@ const PublicState = props => {
     }
 
     const [state, dispatch] = useReducer(PublicReducer, initialState)
-
-    // GET LIST OF USERS - USERID'S AND USERNAMES
-    const getUsers = async () => {
-        try {
-            const listOfUsers = await axios.get(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/public`)
-            const cleanedData = userListCleaner(listOfUsers.data)
-            dispatch({
-                type: GET_USERS_LIST,
-                payload: cleanedData
-            })
-        } catch (err) {
-            console.log('Error retrieving users')
-        }
-    }
 
     // SPRING - GET LIST OF USERS, USERIDS, AND COUNT OF REVIEWED MOVIES
     const fetchUsersList = async () => {
@@ -105,39 +85,6 @@ const PublicState = props => {
             type: SET_PUBLIC_USER_ITEM,
             payload: item
         })
-    }
-
-
-    // GET SELECTED USER COLLECTIONS
-    const getSelectedCollections = async (userId) => {
-        const reqBody = { "userId": `${userId}` }
-        let colData;
-        try {
-            const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/lists`, reqBody)
-            colData = colCleaner(res.data)
-            dispatch({
-                type: GET_PUBLIC_COLS,
-                payload: colData
-            })
-        } catch (err) {
-            console.log("Error retrieving user collections: ", err)
-        }
-    }
-
-    // GET USER FAVORITES
-    const getPublicFavs = async (userId) => {
-        const reqBody = { "userId": `${userId}` }
-        let favData;
-        try {
-            const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/favs`, reqBody)
-            favData = selectedFavCleaner(res.data.Items)
-            dispatch({
-                type: GET_PUBLIC_FAVS,
-                payload: favData
-            })
-        } catch (err) {
-            console.log("There was a problem retrieving favorite: ", err)
-        }
     }
 
     // GET SELECTED FAVORITE (INDIVIDUAL)
@@ -246,9 +193,6 @@ const PublicState = props => {
                 fetchPublicUserCols,
                 clearPublicInfo,
                 searchPublicItem,
-                getUsers,
-                getSelectedCollections,
-                getPublicFavs,
                 getSelectedFavorite,
                 getSelectedInfo,
                 updateSelectedUser,
