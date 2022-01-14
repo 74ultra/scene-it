@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import PublicUsers from '../components/PublicUsers'
 import PublicUsersList from '../components/PublicUsersList'
-import PublicFavsTable from '../components/PublicFavsTable'
 import Footer from '../components/Footer'
 import { Container, Row, Col } from 'react-bootstrap'
 import PublicContext from '../state/public/publicContext'

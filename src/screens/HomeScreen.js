@@ -30,7 +30,7 @@ const HomeScreen = () => {
     const { clearAll } = searchContext
 
     const userContext = useContext(UserContext)
-    const { authenticated, getUserFavorites, getUserCollections, userid, username } = userContext
+    const { authenticated, userid, username } = userContext
 
     const mediaContext = useContext(MediaContext)
     const { fetchUserMedia, fetchUserCollections } = mediaContext
@@ -43,8 +43,6 @@ const HomeScreen = () => {
     useEffect(() => {
         clearAllPublic()
         if (authenticated) {
-            getUserFavorites(userid)
-            getUserCollections(userid)
             fetchUserMedia(userid, username)
             fetchUserCollections(userid, username)
         }
