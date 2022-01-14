@@ -1,7 +1,4 @@
 import {
-    GET_USERS_LIST,
-    GET_PUBLIC_FAVS,
-    GET_PUBLIC_COLS,
     UPDATE_SELECTED_USER,
     CLEAR_USER_INFO,
     GET_SELECTED_FAVORITE,
@@ -9,25 +6,35 @@ import {
     GET_SELECTED_INFO,
     CHANGE_PUBLIC_VIEW,
     CLEAR_SELECTED_INFO,
-    CLEAR_SELECTED_FAV
+    CLEAR_SELECTED_FAV,
+    FETCH_USERS_LIST,
+    FETCH_PUBLIC_MEDIA,
+    FETCH_PUBLIC_COLLECTIONS,
+    CLEAR_PUBLIC_INFO,
+    SET_PUBLIC_USER_ITEM
 } from '../types'
 
 export default (state, action) => {
     switch (action.type) {
-        case GET_USERS_LIST:
+        case FETCH_USERS_LIST:
             return {
                 ...state,
-                userList: action.payload
+                allUsersList: action.payload
             }
-        case GET_PUBLIC_COLS:
+        case FETCH_PUBLIC_MEDIA:
             return {
                 ...state,
-                userCollections: action.payload
+                selectedUserMedia: action.payload
             }
-        case GET_PUBLIC_FAVS:
+        case FETCH_PUBLIC_COLLECTIONS:
             return {
                 ...state,
-                selectedUserFavs: action.payload
+                selectedUserCols: action.payload
+            }
+        case SET_PUBLIC_USER_ITEM:
+            return {
+                ...state,
+                publicUserItem: action.payload
             }
         case GET_SELECTED_FAVORITE:
             return {
@@ -51,6 +58,13 @@ export default (state, action) => {
                 userCollections: null,
                 selectedUserFavs: null,
                 selectedInfo: null
+            }
+        case CLEAR_PUBLIC_INFO:
+            return {
+                ...state,
+                selectedUserMedia: null,
+                selectedUserCols: null,
+                selectedUserName: null
             }
         case CLEAR_ALL_PUBLIC:
             return {

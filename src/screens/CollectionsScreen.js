@@ -1,23 +1,27 @@
 import React, { useEffect, useContext } from 'react'
-import CollectionAcc from '../components/CollectionAcc'
+import CollectionMedAcc from '../components/CollectionMedAcc'
 import { useHistory } from 'react-router-dom'
 import { Container, Row, Col, Button, Accordion } from 'react-bootstrap'
 import NoFavorites from '../components/NoFavorites'
 import Footer from '../components/Footer'
 
 import UserContext from '../state/user/userContext'
+import MediaContext from '../state/media/mediaContext'
 
 const CollectionsScreen = () => {
 
     const history = useHistory()
 
     const userContext = useContext(UserContext)
+    const mediaContext = useContext(MediaContext)
 
-    const { favorites, collections, getUserFavorites, getUserCollections, userId } = userContext
+    const { userid, username } = userContext
+    const { media, collections, fetchUserMedia, fetchUserCollections } = mediaContext
 
+    console.log(collections === null)
     useEffect(() => {
-        getUserFavorites(userId)
-        getUserCollections(userId)
+        fetchUserMedia(userid, username)
+        fetchUserCollections(userid, username)
     }, [])
 
     return (
@@ -28,7 +32,7 @@ const CollectionsScreen = () => {
                         <h1>Your Collections</h1>
                     </Col>
                 </Row>
-                {!collections || (collections.length < 1 && <NoFavorites />)}
+                {(!collections || collections.length < 1) && <NoFavorites />}
                 {collections && collections.length > 0 && <>
                     <Row>
                         <Col style={{ margin: '0 0 20px' }}>
@@ -39,14 +43,12 @@ const CollectionsScreen = () => {
                         <Col>
                             <Accordion>
                                 {collections && collections.map((col, ind) => {
-                                    return <CollectionAcc key={ind} index={ind} favs={favorites} title={col} />
+                                    return <CollectionMedAcc key={ind} index={ind} media={media} title={col} />
                                 })}
                             </Accordion>
                         </Col>
                     </Row>
                 </>}
-
-
             </Container>
             <Footer />
         </>

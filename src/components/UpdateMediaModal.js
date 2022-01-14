@@ -1,47 +1,51 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Modal, Button, Form, Container, FloatingLabel, FormGroup } from 'react-bootstrap'
-import UserContext from '../state/user/userContext';
+import UserContext from '../state/user/userContext'
+import MediaContext from '../state/media/mediaContext'
 
-const UpdateFavModal = ({ movie }) => {
+const UpdateMediaModal = ({ movie }) => {
 
     const history = useHistory()
 
     const userContext = useContext(UserContext)
+    const mediaContext = useContext(MediaContext)
 
-    const addFavorite = userContext.addFavorite
-
-    const userId = userContext.userId
+    const userid = userContext.userid
     const username = userContext.username
-    const collections = userContext.collections
-    const favInfo = userContext.favInfo
+    const collections = mediaContext.collections
+    const mediaInfo = mediaContext.mediaInfo
+    const updateMedia = mediaContext.updateMedia
+    const fetchUserMedia = mediaContext.fetchUserMedia
+    const fetchUserCollections = mediaContext.fetchUserCollections
 
+    console.log(mediaInfo)
 
     const [show, setShow] = useState(false);
     const [newCol, setNewCol] = useState(!(collections.length > 0))
 
     const handleClose = () => {
         setForm({
-            col: '',
-            rating: 0,
+            collection: '',
+            rating: 0.0,
             comment: ''
         })
         setShow(false)
-
     };
+
     const handleShow = () => {
         setShow(true)
         setForm({
-            col: favInfo.col.S,
-            rating: favInfo.rating.S,
-            comment: favInfo.comment.S
+            collection: mediaInfo.collection,
+            rating: mediaInfo.rating,
+            comment: mediaInfo.comment
         })
     };
 
     const [form, setForm] = useState({
-        col: favInfo.col.S,
-        rating: favInfo.rating.S,
-        comment: favInfo.comment.S
+        collection: mediaInfo.collection,
+        rating: mediaInfo.rating,
+        comment: mediaInfo.comment
     })
 
     const handleChange = e => {
@@ -52,21 +56,27 @@ const UpdateFavModal = ({ movie }) => {
         e.preventDefault()
         const submitData = {
             ...form,
-            userId: userId,
+            id: mediaInfo.id,
+            userid: userid,
             username: username,
-            imdbID: favInfo.imdbID.S,
-            poster: favInfo.poster.S,
-            title: favInfo.title.S,
-            type: favInfo.type.S,
-            year: favInfo.year.S
+            imdbid: mediaInfo.imdbid,
+            title: mediaInfo.title,
+            category: mediaInfo.category,
+            year: mediaInfo.year
         }
-        addFavorite(submitData)
-        handleClose()
+        updateMedia(submitData)
+            .then(() => fetchUserMedia(userid, username))
+            .then(() => {
+                fetchUserCollections(userid, username)
+                handleClose()
+            })
+
         setTimeout(() => {
             history.push('/collections')
         }, 500)
 
     }
+
 
     return (
         <>
@@ -98,8 +108,8 @@ const UpdateFavModal = ({ movie }) => {
                             <FloatingLabel controlId='floatingSelect' label='Select a collection'>
                                 <Form.Select aria-label="collection select"
                                     type='text'
-                                    name='col'
-                                    value={form.col}
+                                    name='collection'
+                                    value={form.collection}
                                     onChange={handleChange}
                                 >
                                     <option>{form.col}</option>
@@ -114,8 +124,8 @@ const UpdateFavModal = ({ movie }) => {
                             <FloatingLabel controlId='floatingSelect' label='Create a new collection'>
                                 <Form.Control
                                     type='text'
-                                    name='col'
-                                    value={form.col}
+                                    name='collection'
+                                    value={form.collection}
                                     onChange={handleChange}
                                 />
                             </FloatingLabel>
@@ -129,15 +139,15 @@ const UpdateFavModal = ({ movie }) => {
                                     value={form.rating}
                                     onChange={handleChange}>
                                     <option></option>
-                                    <option value={1}>1 star</option>
+                                    <option value={1.0}>1 star</option>
                                     <option value={1.5}>1.5 star</option>
-                                    <option value={2}>2 stars</option>
+                                    <option value={2.0}>2 stars</option>
                                     <option value={2.5}>2.5 stars</option>
-                                    <option value={3}>3 stars</option>
+                                    <option value={3.0}>3 stars</option>
                                     <option value={3.5}>3.5 stars</option>
-                                    <option value={4}>4 stars</option>
+                                    <option value={4.0}>4 stars</option>
                                     <option value={4.5}>4.5 stars</option>
-                                    <option value={5}>5 stars</option>
+                                    <option value={5.0}>5 stars</option>
                                 </Form.Select>
                             </FloatingLabel>
 
@@ -170,4 +180,4 @@ const UpdateFavModal = ({ movie }) => {
     )
 }
 
-export default UpdateFavModal
+export default UpdateMediaModal

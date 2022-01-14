@@ -1,19 +1,16 @@
 import React from 'react'
-import CollectionItemsAcc from './CollectionItemsAcc'
 import { Accordion } from 'react-bootstrap'
+import PubAccordianItem from './PubAccordianItem'
 
-const CollectionAcc = ({ title, index, favs }) => {
-
+const PubColAccordion = ({ title, media, index, pubUserId }) => {
     return (
-
         <Accordion.Item style={{ padding: '0 0 10px', background: 'transparent' }} eventKey={`${index}`}>
             <Accordion.Header>{title}</Accordion.Header>
             <Accordion.Body>
-                <CollectionItemsAcc title={title} favs={favs} />
+                <PubAccordianItem title={title} media={media} key={index} pubUserId={pubUserId} />
             </Accordion.Body>
         </Accordion.Item>
-
     )
 }
 
-export default CollectionAcc
+export default PubColAccordion

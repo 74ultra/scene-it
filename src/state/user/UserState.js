@@ -9,11 +9,7 @@ import { colCleaner } from '../../utils/helpers'
 
 import {
     GET_USER_INFO,
-    GET_FAVORITES,
     SIGN_OUT_USER,
-    GET_FAV_INFO,
-    CLEAR_FAV_INFO,
-    GET_USER_COLLECTIONS,
     SET_ERROR_STATUS,
     SET_TEMP_CREDS
 } from '../types'
@@ -22,10 +18,7 @@ import {
 const UserState = props => {
     const initialState = {
         username: null,
-        userId: null,
-        favorites: null,
-        collections: null,
-        favInfo: null,
+        userid: null,
         errorStatus: null,
         authenticated: false,
         tempCreds: null
@@ -49,79 +42,6 @@ const UserState = props => {
             console.log('Get user error: ', err)
         }
 
-    }
-
-    // GET FAVORITES FROM DATABASE
-    const getUserFavorites = async (userId) => {
-        const reqBody = { "userId": `${userId}` }
-        let favData;
-        try {
-            const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/favs`, reqBody)
-            favData = res.data.Items
-            // const cleanedData = favDataCleaner(favData)
-            dispatch({
-                type: GET_FAVORITES,
-                payload: favData
-            })
-        } catch (err) {
-            console.log("There was a problem retrieving favorite: ", err)
-        }
-
-
-    }
-
-    // GET LIST OF COLLECTION NAMES
-    const getUserCollections = async (userId) => {
-        const reqBody = { "userId": `${userId}` }
-        let colData;
-        try {
-            const res = await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/lists`, reqBody)
-            colData = colCleaner(res.data)
-            dispatch({
-                type: GET_USER_COLLECTIONS,
-                payload: colData
-            })
-        } catch (err) {
-            console.log("Error retrieving user collections: ", err)
-        }
-    }
-
-    // GET INFO FOR INDIVIDUAL FAVORITE
-    const getFavInfo = (id) => {
-        clearFavInfo()
-        const filtered = state.favorites.filter(fav => fav.imdbID.S === id)
-
-        dispatch({
-            type: GET_FAV_INFO,
-            payload: filtered[0]
-        })
-    }
-
-    // CLEAR INDIVIDUAL FAVIORITE INFO
-    const clearFavInfo = () => {
-        dispatch({ type: CLEAR_FAV_INFO })
-    }
-
-    // ADD ITEM TO FAVORITES
-    const addFavorite = async (favData) => {
-        try {
-            await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it`, favData)
-        } catch (err) {
-            console.log('Error add movie to favorites: ', err)
-        }
-    }
-
-    // DELETE ITEM FROM FAVORITES
-    const deleteFavorite = async (imdbID) => {
-        const reqBody = {
-            "userId": `${state.userId}`,
-            "imdbID": `${imdbID}`
-        }
-        try {
-            await axios.post(`https://5rdy4l3y5i.execute-api.us-west-1.amazonaws.com/prod/scene-it/remove`, reqBody)
-        } catch (err) {
-            console.log('Error deleting item: ', err)
-        }
     }
 
     // STORE USERNAME AND EMAIL TEMPORARILY TO HANLDE CONFIRMATION ERRORS
@@ -150,6 +70,7 @@ const UserState = props => {
             })
     }
 
+    // SIGN IN
     const signIn = (userName, passWord) => {
         Auth.signIn(userName, passWord)
             .then(res => {
@@ -177,7 +98,7 @@ const UserState = props => {
         }
     }
 
-    // CONFIRM NEW USER ACCOUNT
+    // CONFIRM NEW USER SIGNUP
     const confirmNewSignUp = async (username, confirmationCode) => {
         try {
             await Auth.confirmSignUp(username, confirmationCode)
@@ -188,6 +109,7 @@ const UserState = props => {
         }
     }
 
+    // CONFIRM NEW USER ACCOUNT
     const confirmNewAccount = (username, confirmationCode) => {
         Auth.confirmSignUp(username, confirmationCode)
             .then(() => setErrorStatus(null))
@@ -216,18 +138,13 @@ const UserState = props => {
         })
     }
 
+
     return (
         <UserContext.Provider
             value={{
                 getUser,
-                getUserFavorites,
-                getUserCollections,
                 signOut,
                 signIn,
-                addFavorite,
-                getFavInfo,
-                deleteFavorite,
-                clearFavInfo,
                 setErrorStatus,
                 setTempCredentials,
                 resendConfirmCode,
@@ -235,10 +152,7 @@ const UserState = props => {
                 confirmNewAccount,
                 createNewAccount,
                 username: state.username,
-                userId: state.userId,
-                favorites: state.favorites,
-                collections: state.collections,
-                favInfo: state.favInfo,
+                userid: state.userid,
                 authenticated: state.authenticated,
                 errorStatus: state.errorStatus,
                 tempCreds: state.tempCreds

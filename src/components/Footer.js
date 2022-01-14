@@ -9,7 +9,7 @@ const Footer = () => {
                 <Container>
                     <Row style={{ textAlign: 'center', margin: '0 auto' }}>
                         <Col>
-                            <p style={{ margin: '0', fontSize: '0.8rem' }}>Copyright &copy; 2021 Scene-It</p>
+                            <p style={{ margin: '0', fontSize: '0.8rem' }}>Copyright &copy; 2022 Scene-It</p>
                         </Col>
                     </Row>
                 </Container>

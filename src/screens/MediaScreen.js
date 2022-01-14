@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext, useRef } from 'react'
-import AddFavModal from '../components/AddFavModal'
+import AddMediaModal from '../components/AddMediaModal'
 import { Row, Col, Image, Table, Container, Button, Accordion } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Footer from '../components/Footer'
 import SearchContext from '../state/search/searchContext'
 import UserContext from '../state/user/userContext'
+import MediaContext from '../state/media/mediaContext'
 
 const MediaScreen = ({ match }) => {
 
@@ -19,16 +20,18 @@ const MediaScreen = ({ match }) => {
 
     const searchContext = useContext(SearchContext)
     const userContext = useContext(UserContext)
+    const mediaContext = useContext(MediaContext)
 
     const { titleInfo, titleSearch, clearTitleInfo } = searchContext
-    const { favorites, authenticated } = userContext
+    const { authenticated } = userContext
+    const { media } = mediaContext
 
     const [isFav, setIsFav] = useState(false)
 
     const isFavorite = (id, favs) => {
         if (favs) {
             favs.forEach(fav => {
-                if (fav.imdbID.S === id) {
+                if (fav.imdbid === id) {
                     setIsFav(true)
                 }
             })
@@ -39,8 +42,8 @@ const MediaScreen = ({ match }) => {
 
     useEffect(() => {
         titleSearch(params)
-        if (favorites) {
-            isFavorite(params, favorites)
+        if (media) {
+            isFavorite(params, media)
         }
     }, [params])
 
@@ -55,11 +58,15 @@ const MediaScreen = ({ match }) => {
         return converted
     }
 
+    const handleGoCollections = () => {
+        history.push('/collections')
+    }
+
     return (
         <>
             <Container style={{ padding: '20px 0' }}>
                 <Link to='/results'>
-                    <Button onClick={clearTitleInfo} size='sm' variant='light' style={{ borderRadius: '3px' }}>&#x27F5; Back to search results</Button>
+                    <Button onClick={clearTitleInfo} size='sm' variant='primary' style={{ borderRadius: '3px' }}>&#x27F5; Back to search results</Button>
                 </Link>
             </Container>
 
@@ -122,8 +129,8 @@ const MediaScreen = ({ match }) => {
                                     </tr>
                                 </tbody>
                             </Table>
-                            {isFav && <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={() => history.push('/collections')}>Go to Collections</Button>}
-                            {authenticated && !isFav && <AddFavModal toggleFav={setIsFav} movie={titleInfo} />}
+                            {isFav && <Button variant='light' style={{ width: '100%', borderRadius: '3px' }} onClick={handleGoCollections}>Go to Collections</Button>}
+                            {authenticated && !isFav && <AddMediaModal toggleFav={setIsFav} movie={titleInfo} />}
                         </Col>
                         <Col>
                             {authenticated && isFav &&

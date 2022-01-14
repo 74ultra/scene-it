@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import UserContext from '../state/user/userContext'
-import FavoritesTable from '../components/FavoritesTable'
+import MediaContext from '../state/media/mediaContext'
+import FavoritesMediaTable from '../components/FavoritesMediaTable'
 import NoFavorites from '../components/NoFavorites'
-import Loader from '../components/Loader'
 import Footer from '../components/Footer'
 import { Container, Button, Col, Row } from 'react-bootstrap'
 
@@ -12,13 +12,15 @@ const FavoritesScreen = () => {
     const history = useHistory()
 
     const userContext = useContext(UserContext)
+    const mediaContext = useContext(MediaContext)
 
-    const { userId, getUserFavorites, favorites } = userContext
+    const { userid, username } = userContext
+    const { fetchUserMedia, media, fetchUserCollections, clearMediaInfo } = mediaContext
 
     useEffect(() => {
-
-        getUserFavorites(userId)
-
+        fetchUserCollections(userid, username)
+        fetchUserMedia(userid, username)
+        clearMediaInfo()
     }, [])
 
 
@@ -30,9 +32,8 @@ const FavoritesScreen = () => {
                     <h1>Your Favorites</h1>
                 </Col>
             </Row>
-            {!favorites && <Loader />}
-            {favorites && favorites.length < 1 && <NoFavorites />}
-            {favorites && favorites.length > 0 && (
+            {(!media || media.length < 1) && <NoFavorites />}
+            {media && media.length > 0 && (
                 <>
                     <Row>
                         <Col style={{ margin: '0 0 20px' }}>
@@ -41,7 +42,7 @@ const FavoritesScreen = () => {
                     </Row>
                     <Row>
                         <Col>
-                            <FavoritesTable favorites={favorites} />
+                            <FavoritesMediaTable favorites={media} />
                         </Col>
                     </Row>
 
