@@ -21,9 +21,10 @@ const AboutScreen = () => {
                                 <Accordion.Body>
                                     <ul style={{ lineHeight: '1.8', fontSize: '1.1rem' }}>
                                         <li>Users can search and view details for 1000's of movies, series, and games</li>
-                                        <li>Users can create a "Favorites" collection and add selected media to that list</li>
-                                        <li>Users can rate favorited movies (1-5 stars) and add their own reviews</li>
-                                        <li><strong>*Future*</strong> - Users can share their "Favorites" collection with others</li>
+                                        <li>Users can create personal movie collections and add selected media to those lists</li>
+                                        <li>Users can rate media (1-5 stars) and add their own reviews</li>
+                                        <li>Users can view public collections and reviews created by registered users</li>
+                                        <li><strong>*Future*</strong> - Users can share collections and individual reviews over social media</li>
                                     </ul>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -105,6 +106,7 @@ const AboutScreen = () => {
                                                 <ul style={{ lineHeight: '1.8', fontSize: '1.1rem' }}>
                                                     <li>People who want to search for and research movies</li>
                                                     <li>People who want to create personal movie lists with their own rating and critiques</li>
+                                                    <li>People who want to see share their thoughts on movies and other media</li>
                                                     <li>People who like to see what friends and celebrities think of certain media</li>
                                                 </ul>
                                             </Accordion.Body>
@@ -152,8 +154,9 @@ const AboutScreen = () => {
                                 <Accordion.Header>Technology</Accordion.Header>
                                 <Accordion.Body>
                                     <ul style={{ lineHeight: '1.8', fontSize: '1.1rem' }}>
-                                        <li><strong>Frontend</strong> - React, Context API with useReducer, React Bootstrap, Amplify</li>
-                                        <li><strong>Backend - AWS</strong> - API Gateway, DynamoDB, Lambdas, Cognito</li>
+                                        <li><strong>Frontend</strong> - React, Context API with useReducer, React Bootstrap</li>
+                                        <li><strong>Backend</strong> - Java Spring Boot</li>
+                                        <li><strong>AWS Services</strong> - Amplify, Elastic Beanstalk, RDS (MySql), Cognito</li>
                                         <li><strong>Third-party database</strong> - Open Movie Database</li>
                                     </ul>
                                 </Accordion.Body>
@@ -170,8 +173,8 @@ const AboutScreen = () => {
                                 <Accordion.Body>
                                     <ul style={{ lineHeight: '1.8', fontSize: '1.1rem' }}>
                                         <li><strong>Advanced search</strong> - Search by movie title, type, and year released </li>
-                                        <li><strong>Sharing</strong> - Ability to make user collections publically available</li>
-                                        <li><strong>Sharing</strong> - Ability to search for a particular user</li>
+                                        <li><strong>Social media integration</strong> - Ability to share collections and individual reviews over social media platforms</li>
+                                        <li><strong>User generated content</strong> - Ability for users to upload content relevent to particular media</li>
                                     </ul>
                                 </Accordion.Body>
                             </Accordion.Item>
